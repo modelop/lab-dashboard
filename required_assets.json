@@ -1,0 +1,25 @@
+[
+    {
+        "usage": "INPUT_ASSET",
+        "assetRole": "BASELINE_DATA",
+        "metaData": {
+            "description": "Baseline/Reference Dataset"
+        }
+    },
+    {
+        "usage": "INPUT_ASSET",
+        "assetRole": "COMPARATOR_DATA",
+        "metaData": {
+            "description": "Slice of Production Data"
+        }
+    },
+    {
+        "usage": "ADDITIONAL_ASSET",
+        "assetRole":"UNKNOWN",
+        "name": ".*\\.json",
+        "filename": "modelop_parameters.json",
+        "metaData": {
+            "description": "Monitoring Parameters File"
+        }
+    }
+]
