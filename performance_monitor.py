@@ -45,18 +45,13 @@ def calculate_performance(comparator, methodology, init_param) -> dict:
     if methodology.lower() == "regression":
       performance_regression.init(init_param)
       result = performance_regression.metrics(comparator)
-      raw_values_for_evaluation = {"statistical_performance_val": result["r2_score"]}
-      raw_values_for_evaluation = {"statistical_performance_unit": "r2"}
-      result.update(raw_values_for_evaluation)
+      result["statistical_performance_val"] = result["r2_score"]
+      result["statistical_performance_unit"] = "r2"
     else:
       performance_classification.init(init_param)
       result = performance_classification.metrics(comparator)
-      raw_values_for_evaluation = {"statistical_performance_val": result["auc"]}
-      raw_values_for_evaluation = {"statistical_performance_unit": "auc"}
-      result.update(raw_values_for_evaluation)
-
+      result["statistical_performance_val"] = result["auc"]
+      result["statistical_performance_unit"] = "auc"
+ 
       # Generating one output for evaluation
-      
-      
       return result
-
