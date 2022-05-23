@@ -1,8 +1,9 @@
 from modelop.ootb_monitors.performance_classification import performance_classification
+from modelop.ootb_monitors.performance_regression import performance_regression
 from modelop_sdk.utils import dashboard_utils as dashboard_utils
 
 
-def calculate_performance(comparator, init_param) -> dict:
+def calculate_performance(comparator, methodology, init_param) -> dict:
     """
     Source - https://github.com/modelop/moc_monitors/tree/main/src/modelop/ootb_monitors/performance_classification
     Monitor result
@@ -40,13 +41,41 @@ def calculate_performance(comparator, init_param) -> dict:
     """
 
     dashboard_utils.assert_df_not_none_and_not_empty(comparator, "Required comparator")
-    performance_classification.init(init_param)
-    monitor_results = performance_classification.metrics(comparator)
+    
+    if methodology.lower() == "regression":
+      performance_regression.init(init_param)
+      regression_metrics = performance_regression.metrics(comparator)
+      result = {
+          # Top-level metrics
+          "rmse": regression_metrics["values"]["rmse"],
+          "mae": regression_metrics["values"]["mae"],
+          "r2_score": regression_metrics["values"]["r2_score"],
+          # Vanilla ModelEvaluator output
+          "performance": [regression_metrics],
+      }
+      raw_values_for_evaluation = {"statistical_performance_val": regression_metrics["values"]["r2_score"]}
+      raw_values_for_evaluation = {"statistical_performance_unit": "r2"}
+      result.update(raw_values_for_evaluation)
+    else:
+      performance_classification.init(init_param)
+      classification_metrics = performance_classification.metrics(comparator)
+      result = {
+          # Top-level metrics
+          "accuracy": classification_metrics["values"]["accuracy"],
+          "precision": classification_metrics["values"]["precision"],
+          "recall": classification_metrics["values"]["recall"],
+          "auc": classification_metrics["values"]["auc"],
+          "f1_score": classification_metrics["values"]["f1_score"],
+          "confusion_matrix": classification_metrics["values"]["confusion_matrix"],
+          # Vanilla ModelEvaluator output
+          "performance": [classification_metrics],
+      }
+      raw_values_for_evaluation = {"statistical_performance_val": classification_metrics["values"]["auc"]}
+      raw_values_for_evaluation = {"statistical_performance_unit": "auc"}
+      result.update(raw_values_for_evaluation)
 
-    for result in monitor_results:
-        performance_results = result
+      # Generating one output for evaluation
+      
+      
+      return result
 
-    # Generating one output for evaluation
-    raw_values_for_evaluation = {"statistical_performance_auc": performance_results["auc"]}
-    performance_results.update(raw_values_for_evaluation)
-    return raw_values_for_evaluation

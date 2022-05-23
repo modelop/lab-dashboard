@@ -155,8 +155,10 @@ def metrics(baseline, comparator) -> dict:
 
     try:
         # Statistical Performance Monitor
-        monitor_results.update(
-            statistical_performance_monitor.calculate_performance(comparator, INIT_PARAM))
+        if MODEL_METHODOLOGY.lower() == "regression":
+           monitor_results.update(statistical_performance_monitor.calculate_performance(comparator,"regression", INIT_PARAM))
+        else:
+            monitor_results.update(statistical_performance_monitor.calculate_performance(comparator,"classification", INIT_PARAM))
     except Exception as ex:
         monitor_results["statistical_performance_auc"] = -1
         error_message = f"Something went wrong with Statistical Performance monitor: {str(ex)}"
