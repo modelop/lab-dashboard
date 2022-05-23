@@ -10,7 +10,8 @@ import volumetrics_count_monitor as daily_inferences_monitor
 import data_drift_monitor as data_drift_monitor
 import volumetrics_identifier_comparison_monitor as output_integrity_monitor
 import concept_drift_monitor as concept_drift_monitor
-import performance_monitor as statistical_performance_monitor
+import performance_monitor as statistical_performance_monitor_classification
+import performance_monitor_regression as statistical_performance_monitor_regression
 import stability_monitor as characteristic_stability_monitor
 import bias_disparity_monitor as ethical_fairness_monitor
 import NewRelicDashboardMonitor as new_relic_monitor
@@ -156,9 +157,9 @@ def metrics(baseline, comparator) -> dict:
     try:
         # Statistical Performance Monitor
         if MODEL_METHODOLOGY.lower() == "regression":
-           monitor_results.update(statistical_performance_monitor.calculate_performance(comparator,"regression", INIT_PARAM))
+           monitor_results.update(statistical_performance_monitor_regression.calculate_performance(comparator, INIT_PARAM))
         else:
-            monitor_results.update(statistical_performance_monitor.calculate_performance(comparator,"classification", INIT_PARAM))
+            monitor_results.update(statistical_performance_monitor_classification.calculate_performance(comparator, INIT_PARAM))
     except Exception as ex:
         monitor_results["statistical_performance_unit"] = "N/A"
         monitor_results["statistical_performance_val"] = -1
