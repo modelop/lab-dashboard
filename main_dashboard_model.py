@@ -68,8 +68,8 @@ def init(init_param):
         MODEL_USE_CATEGORY = modelop_fields["modelUseCategory"]
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
-       # MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
-        MODEL_METHODOLOGY = "Regression"
+        MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
+        #MODEL_METHODOLOGY = "Regression"
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
         LOG.error(error_message)
@@ -94,21 +94,23 @@ def metrics(baseline, comparator) -> dict:
         error_message = f"Something went wile adding default ModelOp fields: {str(ex_default_fields)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
+
     LOG.info("-------BEGIN ROI---------")
     try:
         # ROI Monitor
         if MODEL_METHODOLOGY.lower() == "regression":
             monitor_results['actualROIAllTime'] = regression_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
-            LOG.info("ROI Calculated: " + monitor_results['actualROIAllTime'])
+            LOG.info("ROI Calculated succeeded")
         else:
             monitor_results['actualROIAllTime'] = classification_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
-            LOG.info("ROI Calculated: " + monitor_results['actualROIAllTime'])
+            LOG.info("ROI Calculator failed")
     except Exception as rmE:
         monitor_results["actualROIAllTime"] = "N/A"
         error_message = f"Something went wrong with the ROI monitor: {str(rmE)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
     LOG.info("-------END ROI---------")
+
     try:
         # Daily inferences Monitor
         monitor_results["allVolumetricMonitorRecordCount"] = daily_inferences_monitor.calculate_daily_inferences(
@@ -246,7 +248,7 @@ def metrics(baseline, comparator) -> dict:
 
     dashboard_result.update({"executionErrors": execution_errors_array})
     dashboard_result.update({"executionErrorsCount": len(execution_errors_array)})
-
+    LOG.info("------Monitor Complete-----")
     yield dashboard_result
 
 
