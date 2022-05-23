@@ -1,7 +1,7 @@
 
 {
     "tags": [],
-    "name": "Dashboard Monitor",
+    "name": "Dashboard Model",
     "description": "Primary Dashboard Monitor",
     "modelCategory": "MODEL_MONITORING_MODEL",
     "defaultAssociationRole": "PERFORMANCE_MODEL",

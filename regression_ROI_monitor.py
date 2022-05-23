@@ -57,6 +57,11 @@ def calculate_roi(comparator, deployable_model, input_schema):
     baseline_field = fields["baseline_field"]
     action_field = fields["action_field"]
 
+    print("--------Field readout----------")
+    print(label_field)
+    print(baseline_field)
+    print(action_field)
+    print("--------Field readout----------")
     # ROI cost multipliers for cases that are determined in function
     cost_multipliers = {
         "TP": ROI_parameters["costMultipliersTP"],
