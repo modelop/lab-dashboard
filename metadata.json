@@ -1,8 +1,8 @@
 
 {
     "tags": [],
-    "name": "Return on Investments Monitor (Actuals) for Regression",
-    "description": "Model to Compute Actual ROI",
+    "name": "Dashboard Monitor",
+    "description": "Primary Dashboard Monitor",
     "modelCategory": "MODEL_MONITORING_MODEL",
     "defaultAssociationRole": "PERFORMANCE_MODEL",
     "frequentlyUsed": true,
