@@ -94,20 +94,21 @@ def metrics(baseline, comparator) -> dict:
         error_message = f"Something went wile adding default ModelOp fields: {str(ex_default_fields)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
-
+    LOG.info("-------BEGIN ROI---------")
     try:
         # ROI Monitor
         if MODEL_METHODOLOGY.lower() == "regression":
             monitor_results['actualROIAllTime'] = regression_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
+            LOG.info("ROI Calculated: " + monitor_results['actualROIAllTime'])
         else:
             monitor_results['actualROIAllTime'] = classification_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
-
+            LOG.info("ROI Calculated: " + monitor_results['actualROIAllTime'])
     except Exception as rmE:
         monitor_results["actualROIAllTime"] = "N/A"
         error_message = f"Something went wrong with the ROI monitor: {str(rmE)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
-
+    LOG.info("-------END ROI---------")
     try:
         # Daily inferences Monitor
         monitor_results["allVolumetricMonitorRecordCount"] = daily_inferences_monitor.calculate_daily_inferences(
