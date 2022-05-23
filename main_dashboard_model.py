@@ -63,12 +63,12 @@ def init(init_param):
     LOG.debug(f"init function input: {str(INIT_PARAM)}")
 
     try:
-        ### Adding additional fields - modelUseCategory + modelOrganization + modelRisk
+        ### Adding additional fields - modelUseCategory + modelOrganization + modelRisk + Model Methodology
         modelop_fields = dashboard_utils.get_default_modelop_fields_from_deployable_model(DEPLOYABLE_MODEL)
         MODEL_USE_CATEGORY = modelop_fields["modelUseCategory"]
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
-        MODEL_METHODOLOGY = modelop_fields["modelMethodology"]
+        MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
 
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
