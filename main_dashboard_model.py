@@ -4,7 +4,8 @@ import pandas as pd
 import modelop_sdk.utils.logging as logger
 import modelop.schema.infer as infer
 from sqlalchemy import null
-import default_actual_roi_monitor as default_actual_roi_monitor
+import default_actual_roi_monitor as classification_roi_monitor
+import regression_ROI_monitor as regression_roi_monitor
 import volumetrics_count_monitor as daily_inferences_monitor
 import data_drift_monitor as data_drift_monitor
 import volumetrics_identifier_comparison_monitor as output_integrity_monitor
@@ -42,6 +43,7 @@ def init(init_param):
     global MODEL_USE_CATEGORY
     global MODEL_ORGANIZATION
     global MODEL_RISK
+    global MODEL_METHODOLOGY
 
     job = json.loads(init_param["rawJson"])
     DEPLOYABLE_MODEL = job.get('referenceModel')
@@ -66,6 +68,8 @@ def init(init_param):
         MODEL_USE_CATEGORY = modelop_fields["modelUseCategory"]
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
+        MODEL_METHODOLOGY = modelop_fields["modelMethodology"]
+
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
         LOG.error(error_message)
@@ -92,8 +96,11 @@ def metrics(baseline, comparator) -> dict:
 
     try:
         # ROI Monitor
-        monitor_results['actualROIAllTime'] = default_actual_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL,
-                                                                                       INPUT_SCHEMA)
+        if MODEL_METHODOLOGY.lower() == "regression":
+            monitor_results['actualROIAllTime'] = regression_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
+        else:
+            monitor_results['actualROIAllTime'] = classification_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
+
     except Exception as rmE:
         monitor_results["actualROIAllTime"] = "N/A"
         error_message = f"Something went wrong with the ROI monitor: {str(rmE)}"
@@ -208,9 +215,9 @@ def metrics(baseline, comparator) -> dict:
     val = random.randint(0,100)
     monitor_results["Data pipeline Health"] = val    
 
-    monitor_results["InfoSec Approvals"] = MODEL_CUSTOM_METADATA["InfoSec Approvals"] 
+    monitor_results["Data Usage Approval"] = MODEL_CUSTOM_METADATA["Data Usage Approval"] 
 
-    monitor_results["Risk and Governance"] = MODEL_CUSTOM_METADATA["Risk and Governance"]
+    monitor_results["MRMG Approval"] = MODEL_CUSTOM_METADATA["MRMG Approval"]
 
 
     try:
