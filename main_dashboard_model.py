@@ -68,8 +68,8 @@ def init(init_param):
         MODEL_USE_CATEGORY = modelop_fields["modelUseCategory"]
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
-        MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
-
+       # MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
+        MODEL_METHODOLOGY = "Regression"
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
         LOG.error(error_message)
