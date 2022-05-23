@@ -53,7 +53,7 @@ def calculate_performance(comparator, methodology, init_param) -> dict:
           # Vanilla ModelEvaluator output
           "performance": [regression_metrics],
       }
-      raw_values_for_evaluation = {"statistical_performance_val": regression_metrics["values"]["r2_score"]}
+      raw_values_for_evaluation = {"statistical_performance_val": result["r2_score"]}
       raw_values_for_evaluation = {"statistical_performance_unit": "r2"}
       result.update(raw_values_for_evaluation)
     else:
@@ -70,7 +70,7 @@ def calculate_performance(comparator, methodology, init_param) -> dict:
           # Vanilla ModelEvaluator output
           "performance": [classification_metrics],
       }
-      raw_values_for_evaluation = {"statistical_performance_val": classification_metrics["values"]["auc"]}
+      raw_values_for_evaluation = {"statistical_performance_val": result["auc"]}
       raw_values_for_evaluation = {"statistical_performance_unit": "auc"}
       result.update(raw_values_for_evaluation)
 

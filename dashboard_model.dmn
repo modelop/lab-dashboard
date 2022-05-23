@@ -22,7 +22,7 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1pxpd07" label="statistical_performance_val" camunda:inputVariable="statistical_performance_auc">
+      <input id="InputClause_1pxpd07" label="statistical_performance_val" biodi:width="244" camunda:inputVariable="statistical_performance_auc">
         <inputExpression id="LiteralExpression_1j8u4wm" typeRef="double">
           <text></text>
         </inputExpression>
@@ -489,7 +489,7 @@
           <text>"r2"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0sdnn5d">
-          <text>&lt;0.8</text>
+          <text>&lt; 0.8</text>
         </inputEntry>
         <inputEntry id="UnaryTests_07i1dgi">
           <text></text>
