@@ -1,9 +1,8 @@
 from modelop.ootb_monitors.performance_classification import performance_classification
-from modelop.ootb_monitors.performance_regression import performance_regression
 from modelop_sdk.utils import dashboard_utils as dashboard_utils
 
 
-def calculate_performance(comparator, methodology, init_param) -> dict:
+def calculate_performance(comparator, init_param) -> dict:
     """
     Source - https://github.com/modelop/moc_monitors/tree/main/src/modelop/ootb_monitors/performance_classification
     Monitor result
@@ -41,17 +40,13 @@ def calculate_performance(comparator, methodology, init_param) -> dict:
     """
 
     dashboard_utils.assert_df_not_none_and_not_empty(comparator, "Required comparator")
-    
-    if methodology.lower() == "regression":
-      performance_regression.init(init_param)
-      result = performance_regression.metrics(comparator)
-      result["statistical_performance_val"] = result["r2_score"]
-      result["statistical_performance_unit"] = "r2"
-    else:
-      performance_classification.init(init_param)
-      result = performance_classification.metrics(comparator)
-      result["statistical_performance_val"] = result["auc"]
-      result["statistical_performance_unit"] = "auc"
- 
-      # Generating one output for evaluation
-      return result
+    performance_classification.init(init_param)
+    monitor_results = performance_classification.metrics(comparator)
+
+    for result in monitor_results:
+        performance_results = result
+
+    # Generating one output for evaluation
+    raw_values_for_evaluation = {"statistical_performance_auc": performance_results["auc"]}
+    performance_results.update(raw_values_for_evaluation)
+    return raw_values_for_evaluation
