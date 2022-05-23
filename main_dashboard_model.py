@@ -89,6 +89,7 @@ def metrics(baseline, comparator) -> dict:
         monitor_results["modelUseCategory"] = MODEL_USE_CATEGORY
         monitor_results["modelOrganization"] = MODEL_ORGANIZATION
         monitor_results["modelRisk"] = MODEL_RISK
+        monitor_results["modelMethodology"]=MODEL_METHODOLOGY
     except Exception as ex_default_fields:
         error_message = f"Something went wile adding default ModelOp fields: {str(ex_default_fields)}"
         LOG.error(error_message)

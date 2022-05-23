@@ -12,14 +12,5 @@
         "metaData": {
             "description": "Slice of Production Data"
         }
-    },
-    {
-        "usage": "ADDITIONAL_ASSET",
-        "assetRole":"UNKNOWN",
-        "name": ".*\\.json",
-        "filename": "modelop_parameters.json",
-        "metaData": {
-            "description": "Monitoring Parameters File"
-        }
     }
 ]
