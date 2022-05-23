@@ -44,32 +44,13 @@ def calculate_performance(comparator, methodology, init_param) -> dict:
     
     if methodology.lower() == "regression":
       performance_regression.init(init_param)
-      regression_metrics = performance_regression.metrics(comparator)
-      result = {
-          # Top-level metrics
-          "rmse": regression_metrics["values"]["rmse"],
-          "mae": regression_metrics["values"]["mae"],
-          "r2_score": regression_metrics["values"]["r2_score"],
-          # Vanilla ModelEvaluator output
-          "performance": [regression_metrics],
-      }
+      result = performance_regression.metrics(comparator)
       raw_values_for_evaluation = {"statistical_performance_val": result["r2_score"]}
       raw_values_for_evaluation = {"statistical_performance_unit": "r2"}
       result.update(raw_values_for_evaluation)
     else:
       performance_classification.init(init_param)
-      classification_metrics = performance_classification.metrics(comparator)
-      result = {
-          # Top-level metrics
-          "accuracy": classification_metrics["values"]["accuracy"],
-          "precision": classification_metrics["values"]["precision"],
-          "recall": classification_metrics["values"]["recall"],
-          "auc": classification_metrics["values"]["auc"],
-          "f1_score": classification_metrics["values"]["f1_score"],
-          "confusion_matrix": classification_metrics["values"]["confusion_matrix"],
-          # Vanilla ModelEvaluator output
-          "performance": [classification_metrics],
-      }
+      result = performance_classification.metrics(comparator)
       raw_values_for_evaluation = {"statistical_performance_val": result["auc"]}
       raw_values_for_evaluation = {"statistical_performance_unit": "auc"}
       result.update(raw_values_for_evaluation)
