@@ -35,6 +35,6 @@ def calculate_performance(comparator, init_param) -> dict:
         performance_results = result
 
     # Generating one output for evaluation
-    raw_values_for_evaluation = {"statistical_performance_auc": performance_results["r2_score"]}
+    raw_values_for_evaluation = {"statistical_performance_r2_score": performance_results["r2_score"]}
     performance_results.update(raw_values_for_evaluation)
     return raw_values_for_evaluation
