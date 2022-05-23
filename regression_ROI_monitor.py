@@ -89,26 +89,11 @@ def calculate_roi(comparator, deployable_model, input_schema):
                 "FN" if amount < 0 else "FN"
             )
 
+
     # Compute actual ROI
     actual_roi = compute_actual_roi(comparator_copy)
-
-    yield {
-        "actual_roi": actual_roi,
-        "label_field": label_field,
-        "baseline_field": baseline_field,
-        "business_value": [
-            {
-                "test_name": "Regression ROI",
-                "test_category": "business_value",
-                "test_type": "regression_roi",
-                "test_id": "business_value_regression_roi",
-                "values": {
-                    "actual_roi": actual_roi,
-                    "cost_multipliers": cost_multipliers,
-                },
-            }
-        ],
-    }
+    LOG.info(f"compute_actual_roi: {actual_roi}")
+    return actual_roi
 
 
 def compute_actual_roi(data) -> float:
