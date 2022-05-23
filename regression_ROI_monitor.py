@@ -42,7 +42,7 @@ def calculate_roi(comparator, deployable_model, input_schema):
         LOG.info("ROI paramaters: %s", ROI_parameters)
     except Exception as e:
         error_message = "required deployableModel.storedModel.modelMetadata.roi parameters not found, missing parameters."
-        LOG.eror(error_message)
+        LOG.error(error_message)
         raise KeyError(error_message)
 
     try:
@@ -57,11 +57,11 @@ def calculate_roi(comparator, deployable_model, input_schema):
     baseline_field = fields["baseline_field"]
     action_field = fields["action_field"]
 
-    print("--------Field readout----------")
-    print(label_field)
-    print(baseline_field)
-    print(action_field)
-    print("--------Field readout----------")
+    LOG.info("--------Field readout----------")
+    LOG.info(label_field)
+    LOG.info(baseline_field)
+    LOG.info(action_field)
+    LOG.info("--------Field readout----------")
     # ROI cost multipliers for cases that are determined in function
     cost_multipliers = {
         "TP": ROI_parameters["costMultipliersTP"],
