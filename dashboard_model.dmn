@@ -57,12 +57,12 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0wup698" label="InfoSec Approvals" camunda:inputVariable="InfoSec Approvals">
+      <input id="InputClause_0wup698" label="Data Usage Approval" camunda:inputVariable="Data Usage Approval">
         <inputExpression id="LiteralExpression_1lqoysx" typeRef="boolean">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1tg9kux" label="Risk and Governance" camunda:inputVariable="Risk and Governance">
+      <input id="InputClause_1tg9kux" label="MRMG Approval" camunda:inputVariable="MRMG Approval">
         <inputExpression id="LiteralExpression_09rfm1b" typeRef="boolean">
           <text></text>
         </inputExpression>
