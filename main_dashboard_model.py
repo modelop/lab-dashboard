@@ -158,8 +158,10 @@ def metrics(baseline, comparator) -> dict:
         # Statistical Performance Monitor
         if MODEL_METHODOLOGY.lower() == "regression":
            monitor_results.update(statistical_performance_monitor_regression.calculate_performance(comparator, INIT_PARAM))
+           monitor_results["statistical_performance_unit"] = "r2_score"
         else:
             monitor_results.update(statistical_performance_monitor_classification.calculate_performance(comparator, INIT_PARAM))
+            monitor_results["statistical_performance_unit"] = "auc"
     except Exception as ex:
         monitor_results["statistical_performance_unit"] = "N/A"
         monitor_results["statistical_performance_val"] = -1
