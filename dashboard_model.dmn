@@ -425,7 +425,7 @@
           <text>"Performance Monitor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_068x0k7">
-          <text>"Yellow"</text>
+          <text>"Green"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_19xn0zs">
@@ -575,7 +575,7 @@
           <text>"Performance Monitor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0xcfgf7">
-          <text>"Yellow"</text>
+          <text>"Green"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1klod12">
