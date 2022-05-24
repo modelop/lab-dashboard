@@ -107,7 +107,7 @@ def metrics(baseline, comparator) -> dict:
             LOG.info("ROI Calculator failed")
     except Exception as rmE:
         monitor_results["actualROIAllTime"] = "N/A"
-        error_message = f"Something went wrong with the ROI monitor: {str(rmE)}"
+        error_message = f"Error in the ROI monitor: {str(rmE)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
     LOG.info("-------END ROI---------")
@@ -118,7 +118,7 @@ def metrics(baseline, comparator) -> dict:
             comparator)
     except Exception as volE:
         monitor_results["allVolumetricMonitorRecordCount"] = "N/A"
-        error_message = f"Something went wrong with the Volumetrics count monitor: {str(volE)}"
+        error_message = f"Error in the Volumetrics count monitor: {str(volE)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
 
@@ -129,7 +129,7 @@ def metrics(baseline, comparator) -> dict:
         LOG.info("Data Drift KS monitor successfully executed")
     except Exception as ex:
         monitor_results["data_drift_max_p_value"] = -1
-        error_message = f"Something went wrong with Data Drift KS monitor: {str(ex)}"
+        error_message = f"Error in Data Drift KS monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
 
@@ -140,7 +140,7 @@ def metrics(baseline, comparator) -> dict:
                                                                                  remove_breakdown=True))
     except Exception as ex:
         monitor_results["identifiers_match"] = None
-        error_message = f"Something went wrong with Output Integrity monitor: {str(ex)}"
+        error_message = f"Error in Output Integrity monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
 
@@ -150,7 +150,7 @@ def metrics(baseline, comparator) -> dict:
             concept_drift_monitor.calculate_concept_drift(baseline, comparator, INIT_PARAM))
     except Exception as ex:
         monitor_results["concept_drift_max_p_value"] = -1
-        error_message = f"Something went wrong with Concept Drift monitor: {str(ex)}"
+        error_message = f"Error in Concept Drift monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
 
@@ -165,7 +165,7 @@ def metrics(baseline, comparator) -> dict:
     except Exception as ex:
         monitor_results["statistical_performance_unit"] = "N/A"
         monitor_results["statistical_performance_val"] = -1
-        error_message = f"Something went wrong with Statistical Performance monitor: {str(ex)}"
+        error_message = f"Error in Statistical Performance monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
 
@@ -176,7 +176,7 @@ def metrics(baseline, comparator) -> dict:
         )
     except Exception as ex:
         monitor_results["characteristic_stability_max_stability_index"] = -1
-        error_message = f"Something went wrong with Characteristic Stability monitor: {str(ex)}"
+        error_message = f"Error in Characteristic Stability monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
 
@@ -188,24 +188,9 @@ def metrics(baseline, comparator) -> dict:
     except Exception as ex:
         monitor_results["ethical_fairness_max_ppr_disparity"] = -1
         monitor_results["ethical_fairness_min_ppr_disparity"] = -1
-        error_message = f"Something went wrong with Ethical Fairness monitor: {str(ex)}"
+        error_message = f"Error in Ethical Fairness monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
-
-################################################
-# Data Drift
-# Concept Drift
-# Ethical Fairness
-# Characteristic Stability
-# Statistical Performance
-# Output Integrity
-# Service Response Time
-# Data pipeline Health
-# InfoSec Approvals
-# Risk and Governance
-################################################
-
-    random.seed()
 
     try:
         # New Relic Monitor
@@ -217,10 +202,12 @@ def metrics(baseline, comparator) -> dict:
         monitor_results.update(loop.run_until_complete(task))
 
     except Exception as ex:
-        error_message = f"Something went wrong with New Relic monitor: {str(ex)}"
+        #error_message = f"Error in New Relic monitor: {str(ex)}"
         monitor_results["Service Response Time"] = random.randint(0,500)
         LOG.error(error_message)
         execution_errors_array.append(error_message)
+
+    random.seed()
 
     val = random.randint(0,100)
     monitor_results["Data pipeline Health"] = val    
