@@ -22,7 +22,7 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1pxpd07" label="statistical_performance_val" biodi:width="244" camunda:inputVariable="statistical_perfostatistical_performance_valrmance_val">
+      <input id="InputClause_1pxpd07" label="statistical_performance_val" biodi:width="244" camunda:inputVariable="statistical_performance_val">
         <inputExpression id="LiteralExpression_1j8u4wm" typeRef="double">
           <text></text>
         </inputExpression>
