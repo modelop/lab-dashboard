@@ -12,17 +12,17 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1q3su5i" label="statistical_performance_unit" biodi:width="248" camunda:inputVariable="statistical_performance_auc">
-        <inputExpression id="LiteralExpression_10l3nt5" typeRef="string">
+      <input id="InputClause_1q3su5i" label="statistical_performance_r2_score" biodi:width="248" camunda:inputVariable="statistical_performance_r2_score">
+        <inputExpression id="LiteralExpression_10l3nt5" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0ijgvol" label="statistical_performance_val" biodi:width="248" camunda:inputVariable="statistical_performance_auc">
+      <input id="InputClause_0ijgvol" label="statistical_performance_auc" biodi:width="248" camunda:inputVariable="statistical_performance_auc">
         <inputExpression id="LiteralExpression_1ykge7r" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1pxpd07" label="statistical_performance_val" biodi:width="244" camunda:inputVariable="statistical_performance_auc">
+      <input id="InputClause_1pxpd07" label="statistical_performance_auc" biodi:width="244" camunda:inputVariable="statistical_performance_auc">
         <inputExpression id="LiteralExpression_1j8u4wm" typeRef="double">
           <text></text>
         </inputExpression>
@@ -286,7 +286,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0tzmewz">
-          <text>"auc"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1v78of1">
           <text>&lt; 0</text>
@@ -336,7 +336,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0nvbvoa">
-          <text>"auc"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15z9fqh">
           <text>&lt;= 0.6</text>
@@ -386,7 +386,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_18tqy6y">
-          <text>"auc"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_01flnxh">
           <text>&lt; 0.7</text>
@@ -436,7 +436,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_013qhqz">
-          <text>"auc"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1mzugnm">
           <text>&gt;= 0.7</text>
@@ -486,10 +486,10 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_087hq6z">
-          <text>"r2"</text>
+          <text>&lt; 0.8</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0sdnn5d">
-          <text>&lt; 0.8</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_07i1dgi">
           <text></text>
@@ -525,7 +525,107 @@
           <text>"Performance Monitor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0qzahh9">
-          <text>"red"</text>
+          <text>"Red"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yk7hzz">
+        <inputEntry id="UnaryTests_1rmom89">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06sftmc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rojnrr">
+          <text>]0.8..0.9]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j41v7w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nz8a8w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03umpuv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rwomi0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c01y3d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kcwqmg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p7si75">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eaw7qx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v1a0r6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vmqmg7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iyzeo0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13bad83">
+          <text>"Performance Monitor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hh5fll">
+          <text>"Yellow"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09kwc7b">
+        <inputEntry id="UnaryTests_1lm24pj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nvoq81">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l3pwm5">
+          <text>]0.9..1]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bzugqm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ucowuy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0smg86z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ohe68r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sjx66c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bwrnid">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hjpd31">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05acjvl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cmfowh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v5d8bl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17s8jm0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15v5m7f">
+          <text>"Performance Monitor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vpkndw">
+          <text>"Green"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0ehyz8b">
