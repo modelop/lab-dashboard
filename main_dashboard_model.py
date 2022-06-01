@@ -235,7 +235,7 @@ def metrics(baseline, comparator) -> dict:
                 evaluated_results(i)["testResult"] = "green"
             else:
                 LOG.info("Custom Threshold Failed, setting value to red")
-                log.info(evaluated_results)
+                LOG.info(evaluated_results)
                 evaluated_results(i)["testResult"] = "red"
 
         LOG.info("Generating heatMap")
