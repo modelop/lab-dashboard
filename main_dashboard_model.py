@@ -235,15 +235,17 @@ def metrics(baseline, comparator) -> dict:
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor name") == "Service Response Time":
                         break
-                evaluated_results[i]["testResult"] = "Green"
+                obj = {'color':"Green",'monitor name':"Service Response Time"}    
+                evaluated_results[i] = obj
             else:
                 LOG.info("Custom Threshold Failed, setting value to red")   
                                 
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor name") == "Service Response Time":
                         break
-                evaluated_results[i]["color"] = "Red"
-            LOG.info(evaluated_results[i])
+                obj = {'color':"Red",'monitor name':"Service Response Time"}    
+                evaluated_results[i] = obj
+            LOG.info(evaluated_results)
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
         flat_heatmap = dict_utils.flatten_data(heat_map)
