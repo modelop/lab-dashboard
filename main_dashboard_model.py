@@ -45,6 +45,7 @@ def init(init_param):
     global MODEL_ORGANIZATION
     global MODEL_RISK
     global MODEL_METHODOLOGY
+    global PERFORMANCE_OVERRIDE
 
     job = json.loads(init_param["rawJson"])
     DEPLOYABLE_MODEL = job.get('referenceModel')
@@ -70,7 +71,7 @@ def init(init_param):
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
         MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
-        #MODEL_METHODOLOGY = "Regression"
+        PERFORMANCE_OVERRIDE = MODEL_CUSTOM_METADATA["Perf_Threshold_Override"]
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
         LOG.error(error_message)
@@ -168,7 +169,6 @@ def metrics(baseline, comparator) -> dict:
         error_message = f"Error in Statistical Performance monitor: {str(ex)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
-
     try:
         # Characteristic Stability Monitor
         monitor_results.update(
@@ -222,6 +222,15 @@ def metrics(baseline, comparator) -> dict:
         client = moc_client.MOCClient()
         mlc_api = mlc.MLCApi(client)
         evaluated_results = mlc_api.evaluate_results(monitor_results, "dashboard_model.dmn")
+        LOG.info("Checking for Performance Threshold Overrides")
+        
+        #handle performance override via custom metadata
+        if (PERFORMANCE_OVERRIDE is not None) and (PERFORMANCE_OVERRIDE > 0):
+            if monitor_results["Service Response Time"] <= PERFORMANCE_OVERRIDE:
+                evaluated_results["Service Response Time"]["testResult"] = "green"
+            else:
+                evaluated_results["Service Response Time"]["testResult"] = "red"
+
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
         flat_heatmap = dict_utils.flatten_data(heat_map)
@@ -232,6 +241,7 @@ def metrics(baseline, comparator) -> dict:
         execution_errors_array.append(
             "Something went wrong during DMN evaluation or heatmap generation, please check logs")
 
+    
     dashboard_result = {
         "createdDate": datetime.now().strftime('%m/%d/%Y %H:%M:%S')
     }
