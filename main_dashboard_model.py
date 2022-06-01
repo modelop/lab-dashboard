@@ -195,6 +195,7 @@ def metrics(baseline, comparator) -> dict:
     try:
         # New Relic Monitor
         entityGuid = MODEL_CUSTOM_METADATA["NR_EntityGuid"]
+        NR_OVERRIDE = MODEL_CUSTOM_METADATA["NR_OVERRIDE"]
         apiKey = os.getenv("NEW_RELIC_API_KEY")
         
         loop = asyncio.new_event_loop()
@@ -222,7 +223,7 @@ def metrics(baseline, comparator) -> dict:
         client = moc_client.MOCClient()
         mlc_api = mlc.MLCApi(client)
         evaluated_results = mlc_api.evaluate_results(monitor_results, "dashboard_model.dmn")
-        LOG.info("Checking for Performance Threshold Overrides")
+        LOG.info("Checking for NR Threshold Overrides")
         
         #handle performance override via custom metadata
         if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
