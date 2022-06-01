@@ -231,12 +231,17 @@ def metrics(baseline, comparator) -> dict:
             if monitor_results["Service Response Time"] <= NR_OVERRIDE:
                 LOG.info("Custom Threshold Passed, setting value to green")
 
-                i = evaluated_results.index("Service Response Time")
-                evaluated_results(i)["testResult"] = "green"
+                for i, item in enumerate(evaluated_results):
+                    if item.get("monitor name") == "Service Response Time":
+                        break
+                evaluated_results[i]["testResult"] = "green"
             else:
-                LOG.info("Custom Threshold Failed, setting value to red")
-                LOG.info(evaluated_results)
-                evaluated_results(i)["testResult"] = "red"
+                LOG.info("Custom Threshold Failed, setting value to red")   
+                                
+                for i, item in enumerate(evaluated_results):
+                    if item.get("monitor name") == "Service Response Time":
+                        break
+                evaluated_results[i]["color"] = "red"
 
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
