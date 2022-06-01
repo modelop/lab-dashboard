@@ -228,6 +228,7 @@ def metrics(baseline, comparator) -> dict:
         #handle performance override via custom metadata
         if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
             LOG.info("NR Override detected")
+            i=0
             if monitor_results["Service Response Time"] <= NR_OVERRIDE:
                 LOG.info("Custom Threshold Passed, setting value to green")
 
@@ -242,7 +243,7 @@ def metrics(baseline, comparator) -> dict:
                     if item.get("monitor name") == "Service Response Time":
                         break
                 evaluated_results[i]["color"] = "Red"
-
+            LOG.info(evaluated_results[i])
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
         flat_heatmap = dict_utils.flatten_data(heat_map)
