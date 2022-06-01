@@ -234,14 +234,14 @@ def metrics(baseline, comparator) -> dict:
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor name") == "Service Response Time":
                         break
-                evaluated_results[i]["testResult"] = "green"
+                evaluated_results[i]["testResult"] = "Green"
             else:
                 LOG.info("Custom Threshold Failed, setting value to red")   
                                 
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor name") == "Service Response Time":
                         break
-                evaluated_results[i]["color"] = "red"
+                evaluated_results[i]["color"] = "Red"
 
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
