@@ -227,10 +227,14 @@ def metrics(baseline, comparator) -> dict:
         
         #handle performance override via custom metadata
         if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
-            if monitor_results["Service Response Time"] <= NR_OVERRIDE:
-                evaluated_results["Service Response Time"]["testResult"] = "green"
+            tmp_str = json.dumps(evaluated_results, cls=NpEncoder)
+            tmp_dct = json.loads(tmp_str)
+            if tmp_dct["Service Response Time"] <= NR_OVERRIDE:
+                tmp_dct["Service Response Time"]["testResult"] = "green"
+                evaluated_results = tmp_dct.json   
             else:
-                evaluated_results["Service Response Time"]["testResult"] = "red"
+                tmp_dct["Service Response Time"]["testResult"] = "red"
+                evaluated_results = tmp_dct.json   
 
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
