@@ -223,7 +223,7 @@ def metrics(baseline, comparator) -> dict:
         client = moc_client.MOCClient()
         mlc_api = mlc.MLCApi(client)
         evaluated_results = mlc_api.evaluate_results(monitor_results, "dashboard_model.dmn")
-        LOG.info("Checking for NR Threshold Overrides")
+        LOG.info("Checking for NR Threshold Override")
         
         #handle performance override via custom metadata
         if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
