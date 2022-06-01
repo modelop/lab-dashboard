@@ -235,7 +235,7 @@ def metrics(baseline, comparator) -> dict:
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor name") == "Service Response Time":
                         break
-                    LOG.info("Service Response Time object found at index: " + i)
+                    LOG.info("Service Response Time object found at index: " + str(i))
                 obj = {'color':"Green",'monitor name':"Service Response Time"}    
                 evaluated_results[i] = obj
             else:
@@ -244,7 +244,7 @@ def metrics(baseline, comparator) -> dict:
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor name") == "Service Response Time":
                         break
-                    LOG.info("Service Response Time object found at index: " + i)
+                    LOG.info("Service Response Time object found at index: " + str(i))
                 obj = {'color':"Red",'monitor name':"Service Response Time"}    
                 evaluated_results[i] = obj
             LOG.info(evaluated_results)
