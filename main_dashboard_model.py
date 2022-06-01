@@ -235,8 +235,8 @@ def metrics(baseline, comparator) -> dict:
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor_name") == 'Service Response Time':
                         break
-                    LOG.info("Service Response Time object found at index: " + str(i))
-                obj = {'color':"Green",'monitor name':"Service Response Time"}    
+                LOG.info("Service Response Time object found at index: " + str(i))
+                obj = {'color':"Green",'monitor_name':"Service Response Time"}    
                 evaluated_results[i] = obj
             else:
                 LOG.info("Custom Threshold Failed, setting value to red")   
@@ -244,8 +244,8 @@ def metrics(baseline, comparator) -> dict:
                 for i, item in enumerate(evaluated_results):
                     if item.get("monitor_name") == 'Service Response Time':
                         break                       
-                    LOG.info("Service Response Time object found at index: " + str(i))
-                obj = {'color':"Red",'monitor name':"Service Response Time"}    
+                LOG.info("Service Response Time object found at index: " + str(i))
+                obj = {'color':"Red",'monitor_name':"Service Response Time"}    
                 evaluated_results[i] = obj
             LOG.info(evaluated_results)
         LOG.info("Generating heatMap")
