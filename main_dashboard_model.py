@@ -71,7 +71,7 @@ def init(init_param):
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
         MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
-        NR_OVERRIDE = MODEL_CUSTOM_METADATA["Perf_Threshold_Override"]
+        NR_OVERRIDE = MODEL_CUSTOM_METADATA["NR_OVERRIDE"]
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
         LOG.error(error_message)
