@@ -228,6 +228,7 @@ def metrics(baseline, comparator) -> dict:
         #handle performance override via custom metadata
         if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
             if monitor_results["Service Response Time"] <= NR_OVERRIDE:
+                LOG.info(evaluated_results)
                 i = evaluated_results.index("Service Response Time")
                 evaluated_results(i)["testResult"] = "green"
             else:
