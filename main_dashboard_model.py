@@ -233,7 +233,7 @@ def metrics(baseline, comparator) -> dict:
                 LOG.info("Custom Threshold Passed, setting value to green")
 
                 for i, item in enumerate(evaluated_results):
-                    if item.get("monitor name") == "Service Response Time":
+                    if item.get("monitor_name") == 'Service Response Time':
                         break
                     LOG.info("Service Response Time object found at index: " + str(i))
                 obj = {'color':"Green",'monitor name':"Service Response Time"}    
@@ -242,8 +242,8 @@ def metrics(baseline, comparator) -> dict:
                 LOG.info("Custom Threshold Failed, setting value to red")   
                                 
                 for i, item in enumerate(evaluated_results):
-                    if item.get("monitor name") == "Service Response Time":
-                        break
+                    if item.get("monitor_name") == 'Service Response Time':
+                        break                       
                     LOG.info("Service Response Time object found at index: " + str(i))
                 obj = {'color':"Red",'monitor name':"Service Response Time"}    
                 evaluated_results[i] = obj
