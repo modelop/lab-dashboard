@@ -45,7 +45,7 @@ def init(init_param):
     global MODEL_ORGANIZATION
     global MODEL_RISK
     global MODEL_METHODOLOGY
-    global PERFORMANCE_OVERRIDE
+    global NR_OVERRIDE
 
     job = json.loads(init_param["rawJson"])
     DEPLOYABLE_MODEL = job.get('referenceModel')
@@ -71,7 +71,7 @@ def init(init_param):
         MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
         MODEL_RISK = modelop_fields["modelRisk"]
         MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
-        PERFORMANCE_OVERRIDE = MODEL_CUSTOM_METADATA["Perf_Threshold_Override"]
+        NR_OVERRIDE = MODEL_CUSTOM_METADATA["Perf_Threshold_Override"]
     except Exception as ex:
         error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
         LOG.error(error_message)
@@ -225,8 +225,8 @@ def metrics(baseline, comparator) -> dict:
         LOG.info("Checking for Performance Threshold Overrides")
         
         #handle performance override via custom metadata
-        if (PERFORMANCE_OVERRIDE is not None) and (PERFORMANCE_OVERRIDE > 0):
-            if monitor_results["Service Response Time"] <= PERFORMANCE_OVERRIDE:
+        if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
+            if monitor_results["Service Response Time"] <= NR_OVERRIDE:
                 evaluated_results["Service Response Time"]["testResult"] = "green"
             else:
                 evaluated_results["Service Response Time"]["testResult"] = "red"
