@@ -235,7 +235,7 @@ def metrics(baseline, comparator) -> dict:
                 evaluated_results(i)["testResult"] = "green"
             else:
                 LOG.info("Custom Threshold Failed, setting value to red")
-                i = evaluated_results.index("Service Response Time")
+                i = evaluated_results.index("monitor name" == "Service Response Time")
                 evaluated_results(i)["testResult"] = "green"
 
         LOG.info("Generating heatMap")
