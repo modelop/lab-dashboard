@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0bxelj4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0bxelj4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.0">
   <decision id="Decision_02utv17" name="dashboard_model_demo">
     <decisionTable id="DecisionTable_0yjalvc" hitPolicy="COLLECT">
       <input id="Input_1" label="characteristic_stability_max_stability_index" biodi:width="340" camunda:inputVariable="characteristic_stability_max_stability_index">
@@ -12,17 +12,12 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1q3su5i" label="statistical_performance_unit" biodi:width="248" camunda:inputVariable="statistical_performance_unit">
-        <inputExpression id="LiteralExpression_10l3nt5" typeRef="string">
+      <input id="InputClause_1q3su5i" label="statistical_performance_auc" camunda:inputVariable="statistical_performance_auc">
+        <inputExpression id="LiteralExpression_10l3nt5" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0ijgvol" label="statistical_performance_val" biodi:width="248" camunda:inputVariable="statistical_performance_val">
-        <inputExpression id="LiteralExpression_1ykge7r" typeRef="double">
-          <text></text>
-        </inputExpression>
-      </input>
-      <input id="InputClause_1pxpd07" label="statistical_performance_val" biodi:width="244" camunda:inputVariable="statistical_performance_val">
+      <input id="InputClause_1pxpd07" label="statistical_performance_auc" camunda:inputVariable="statistical_performance_auc">
         <inputExpression id="LiteralExpression_1j8u4wm" typeRef="double">
           <text></text>
         </inputExpression>
@@ -52,27 +47,17 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1mao7k0" label="Service Response Time" camunda:inputVariable="Service Response Time">
-        <inputExpression id="LiteralExpression_02jcp8o" typeRef="double">
+      <input id="InputClause_199qxyr" label="concept_drift_max_p_value" camunda:inputVariable="concept_drift_max_p_value">
+        <inputExpression id="LiteralExpression_0lzy7lw" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_01xk8o8" label="Data pipeline Health" camunda:inputVariable="Data pipeline Health">
-        <inputExpression id="LiteralExpression_0tm5icj" typeRef="integer">
+      <input id="InputClause_0drgidx" label="concept_drift_max_p_value" camunda:inputVariable="concept_drift_max_p_value">
+        <inputExpression id="LiteralExpression_152ytu5" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0wup698" label="Data Usage Approval" camunda:inputVariable="Data Usage Approval">
-        <inputExpression id="LiteralExpression_1lqoysx" typeRef="boolean">
-          <text></text>
-        </inputExpression>
-      </input>
-      <input id="InputClause_1tg9kux" label="MRMG Approval" camunda:inputVariable="MRMG Approval">
-        <inputExpression id="LiteralExpression_09rfm1b" typeRef="boolean">
-          <text></text>
-        </inputExpression>
-      </input>
-      <output id="Output_1" label="monitor_name" name="monitor_name" typeRef="string" biodi:width="192" />
+      <output id="Output_1" label="monitor_name" name="monitor_name" typeRef="string" />
       <output id="OutputClause_0vfqo80" label="color" name="color" typeRef="string">
         <outputValues id="UnaryTests_1yx2fn3">
           <text>"Gray","Green","Yellow","Red"</text>
@@ -86,9 +71,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1dxwrxk">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0zcqlae">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_10mxusk">
@@ -109,23 +91,17 @@
         <inputEntry id="UnaryTests_0puf0wl">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0x4c630">
+        <inputEntry id="UnaryTests_0uwpron">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_12adqa4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1jrqhdu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1k1kd35">
+        <inputEntry id="UnaryTests_1vq3teu">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08ugghi">
           <text>"Characteristic Stability"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1nu3d11">
-          <text>"Green"</text>
+          <text>"Gray"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1jkyop0">
@@ -136,9 +112,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_00znlsw">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0y4brcp">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0cgcg9m">
@@ -159,23 +132,17 @@
         <inputEntry id="UnaryTests_0wae1qu">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_06awkkb">
+        <inputEntry id="UnaryTests_024h460">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0bvxsag">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0hnnlx9">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0dsu7qa">
+        <inputEntry id="UnaryTests_0et6a05">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ykjcej">
           <text>"Characteristic Stability"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1tz97js">
-          <text>"Green"</text>
+          <text>"Red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0xw926m">
@@ -186,9 +153,6 @@
           <text>&lt; 0.2</text>
         </inputEntry>
         <inputEntry id="UnaryTests_07pmxoe">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1mim8qb">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0buupt1">
@@ -209,23 +173,17 @@
         <inputEntry id="UnaryTests_1q1nj1l">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0zlzpaz">
+        <inputEntry id="UnaryTests_1e3kf5r">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0zetax1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0mpf85n">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0hsx1pj">
+        <inputEntry id="UnaryTests_06xt3mu">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1utcpgl">
           <text>"Characteristic Stability"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1uhnl0t">
-          <text>"Green"</text>
+          <text>"Yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0y8t1sz">
@@ -236,9 +194,6 @@
           <text>&lt;= 0.1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0d9pboj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1eh4yh8">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ydcj7u">
@@ -259,16 +214,10 @@
         <inputEntry id="UnaryTests_1a7nd66">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1b3oupz">
+        <inputEntry id="UnaryTests_1yztfoj">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0ivv1oa">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1r4em9d">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_17tk8fu">
+        <inputEntry id="UnaryTests_1avw3tg">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ygoxfj">
@@ -286,9 +235,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0tzmewz">
-          <text>"auc"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1v78of1">
           <text>&lt; 0</text>
         </inputEntry>
         <inputEntry id="UnaryTests_11pctge">
@@ -309,23 +255,17 @@
         <inputEntry id="UnaryTests_1xjjds2">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0og3dqf">
+        <inputEntry id="UnaryTests_1uzlkkl">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0dgn4cy">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_08xtcxf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1cv7v3z">
+        <inputEntry id="UnaryTests_015c1s1">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0o8tbuh">
           <text>"Performance Monitor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0s6i2gl">
-          <text>"Green"</text>
+          <text>"Gray"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_10vrxl6">
@@ -336,9 +276,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0nvbvoa">
-          <text>"auc"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_15z9fqh">
           <text>&lt;= 0.6</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ibi0nl">
@@ -359,16 +296,10 @@
         <inputEntry id="UnaryTests_0kza6ic">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0zhh4cg">
+        <inputEntry id="UnaryTests_0oy17o2">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1jsulb5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ydemiq">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1puho39">
+        <inputEntry id="UnaryTests_0hsqkrt">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xecrzk">
@@ -386,9 +317,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_18tqy6y">
-          <text>"auc"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_01flnxh">
           <text>&lt; 0.7</text>
         </inputEntry>
         <inputEntry id="UnaryTests_06sanax">
@@ -409,23 +337,17 @@
         <inputEntry id="UnaryTests_0fraxf0">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0tdyosu">
+        <inputEntry id="UnaryTests_0yl3s19">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_05ua51e">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0i3raz0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ynj373">
+        <inputEntry id="UnaryTests_1dyfij7">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_14ajjy0">
           <text>"Performance Monitor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_068x0k7">
-          <text>"Green"</text>
+          <text>"Yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_19xn0zs">
@@ -436,9 +358,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_013qhqz">
-          <text>"auc"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1mzugnm">
           <text>&gt;= 0.7</text>
         </inputEntry>
         <inputEntry id="UnaryTests_01zc5nj">
@@ -459,172 +378,16 @@
         <inputEntry id="UnaryTests_0tuc7wj">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1kpue73">
+        <inputEntry id="UnaryTests_1v9y403">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1ialy5s">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_19a46fz">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1s6whak">
+        <inputEntry id="UnaryTests_07a3cep">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_03uqir3">
           <text>"Performance Monitor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bdsds2">
-          <text>"Green"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0fkxu6t">
-        <inputEntry id="UnaryTests_1stblgc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1j8xnhj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_087hq6z">
-          <text>"r2_score"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0sdnn5d">
-          <text>&lt; 0.8</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_07i1dgi">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_016jyfu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0d12uj7">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0awjd4c">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1k4y7ok">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16lw3d9">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0q1xp5b">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0vam40y">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0xgakht">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0i4iysy">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1oscqqt">
-          <text>"Performance Monitor"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0qzahh9">
-          <text>"red"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_13ny2om">
-        <inputEntry id="UnaryTests_0r2ajq3">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0hln4xf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1hqhnyt">
-          <text>"r2_score"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0e779i4">
-          <text>]0.8..0.9]</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_06hz8xb">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_043ewwc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0jg5nu1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0zq4qo6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1frl3jy">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_08nqnwo">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ctx3d4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1qswhrn">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0yb74wr">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0k5i92j">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0txt10h">
-          <text>"Performance Monitor"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0xcfgf7">
-          <text>"Green"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1klod12">
-        <inputEntry id="UnaryTests_1xjzi3f">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0n5klps">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0jft016">
-          <text>"r2_score"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0m9tq5n">
-          <text>]0.9..1]</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0z37rdj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0avc4om">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0pzixmq">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0sijoir">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1s64osk">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1q2dyku">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0e8p0sc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_00l8pyb">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0lyt2su">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_04819lw">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1s74cw7">
-          <text>"Performance Monitor"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1u9pj7e">
           <text>"Green"</text>
         </outputEntry>
       </rule>
@@ -636,9 +399,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ucle33">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1oyozja">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0705tz9">
@@ -659,23 +419,17 @@
         <inputEntry id="UnaryTests_16ellvl">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_04cwjdr">
+        <inputEntry id="UnaryTests_08jeo62">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0g098fj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_03mc9jr">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1mhs6jt">
+        <inputEntry id="UnaryTests_02b0g76">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1cklqvk">
           <text>"Ethical Fairness"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_152opby">
-          <text>"Green"</text>
+          <text>"Red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1f15dp8">
@@ -686,9 +440,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ipxx3e">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1kzyyvv">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_063nmp1">
@@ -709,23 +460,17 @@
         <inputEntry id="UnaryTests_1fpmkiz">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_137gmx5">
+        <inputEntry id="UnaryTests_0dj5ydu">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0hv4f3r">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_05ff89n">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0p98otf">
+        <inputEntry id="UnaryTests_1aijysf">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0mcd0gz">
           <text>"Ethical Fairness"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0zmbjwd">
-          <text>"Green"</text>
+          <text>"Red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0th0gsq">
@@ -736,9 +481,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_18c6xi6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0c0jwym">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x8czpn">
@@ -759,16 +501,10 @@
         <inputEntry id="UnaryTests_1n6533o">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_05pd61m">
+        <inputEntry id="UnaryTests_1oxgy0s">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_028qq6d">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1cbj0hi">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ugumbj">
+        <inputEntry id="UnaryTests_1ub9f5x">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1w9pem5">
@@ -786,9 +522,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_12waidt">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ul5lku">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_10n3yis">
@@ -809,16 +542,10 @@
         <inputEntry id="UnaryTests_1nxhmpu">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_094pyj7">
+        <inputEntry id="UnaryTests_1fnwh8i">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1y05pry">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_18utqyd">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0piialn">
+        <inputEntry id="UnaryTests_19ol1ph">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_187nwu4">
@@ -836,9 +563,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0qftdep">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1mrbxp9">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_02lnai3">
@@ -859,23 +583,17 @@
         <inputEntry id="UnaryTests_0087zop">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1s8sbbk">
+        <inputEntry id="UnaryTests_14zcmw4">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_02fbi0e">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0l6ndh0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1mr0c1t">
+        <inputEntry id="UnaryTests_0nn7osd">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_02f19u4">
           <text>"Ethical Fairness"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1flj3mt">
-          <text>"Green"</text>
+          <text>"Gray"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0kvafgc">
@@ -886,9 +604,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15lhlsf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1i6rz1p">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1adgjta">
@@ -909,23 +624,17 @@
         <inputEntry id="UnaryTests_005jwin">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0xz5p08">
+        <inputEntry id="UnaryTests_1gg92lj">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0enbpe9">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1qjecgv">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_09tw5wn">
+        <inputEntry id="UnaryTests_0abmvhm">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xigkom">
           <text>"Data Drift"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1hyus77">
-          <text>"Green"</text>
+          <text>"Red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1c3xwwg">
@@ -936,9 +645,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rugj67">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1yiiogi">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1c4h95l">
@@ -959,16 +665,10 @@
         <inputEntry id="UnaryTests_1r1lhlz">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_04xk3r2">
+        <inputEntry id="UnaryTests_0y4fprk">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_04xsgpp">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1rpoceq">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_005so9l">
+        <inputEntry id="UnaryTests_0eoc5m0">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0qakz3u">
@@ -986,9 +686,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_16pulaj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1v0beg3">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1mfc368">
@@ -1009,23 +706,17 @@
         <inputEntry id="UnaryTests_0lb4dge">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_05xxy02">
+        <inputEntry id="UnaryTests_065yaq8">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0swl5ee">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1rfeour">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_129uiva">
+        <inputEntry id="UnaryTests_0zv2uc5">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xmueus">
           <text>"Data Drift"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_19vkc2u">
-          <text>"Green"</text>
+          <text>"Yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0vts9ei">
@@ -1036,9 +727,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1sfimtl">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ot29ux">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0b42qah">
@@ -1059,23 +747,17 @@
         <inputEntry id="UnaryTests_14zlwtf">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0wulioa">
+        <inputEntry id="UnaryTests_0y5c0sb">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0eebcqv">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0pbdhmz">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0xb9oxx">
+        <inputEntry id="UnaryTests_011u7fa">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1udukqr">
           <text>"Data Drift"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1d5oqea">
-          <text>"Green"</text>
+          <text>"Gray"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0rtkmje">
@@ -1086,9 +768,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0wrgwg5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1exjot3">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_13w4j6d">
@@ -1109,16 +788,10 @@
         <inputEntry id="UnaryTests_0z3a6vq">
           <text>true</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0j1j1sd">
+        <inputEntry id="UnaryTests_0xwepev">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1lteyb2">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_120whvg">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0nq3r8a">
+        <inputEntry id="UnaryTests_0sw4znl">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_179pfhc">
@@ -1136,9 +809,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jloxgh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1vbnldc">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_11wz7y8">
@@ -1159,23 +829,17 @@
         <inputEntry id="UnaryTests_03b33oc">
           <text>false</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0ze0b1h">
+        <inputEntry id="UnaryTests_06pg1zs">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0y3xj2x">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0yqd3ml">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0fay8ck">
+        <inputEntry id="UnaryTests_1f82c83">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0gksgd1">
           <text>"Output Integrity"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1uuspou">
-          <text>"Green"</text>
+          <text>"Red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_18gsiul">
@@ -1186,9 +850,6 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1vx1srh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1debvf3">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_009jpwo">
@@ -1209,573 +870,181 @@
         <inputEntry id="UnaryTests_10hgcqn">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0cnqnmt">
+        <inputEntry id="UnaryTests_0848u6w">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_11dec6l">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0jl0v58">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0t4qv9f">
+        <inputEntry id="UnaryTests_09wxa5s">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1evzzar">
           <text>"Output Integrity"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1szrs0g">
+          <text>"Gray"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yx6glj">
+        <inputEntry id="UnaryTests_1dgr0sm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14mp8h0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11obcuq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03fb1xv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l6y55t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09s5x8k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rtas7h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_184j3o5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mficzs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ez7amt">
+          <text>&gt;= 2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f3xxpp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18aubzc">
+          <text>"Concept Drift"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14054rh">
+          <text>"Red"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qa59v7">
+        <inputEntry id="UnaryTests_0io5u0y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0btqf2c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bxlhtl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c28a22">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f6a9wl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00ca40z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j3li7q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qhsmsq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pkbqqi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_161rpfj">
+          <text>&lt;= 1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d65iwj">
+          <text>&gt;= 0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jf9wn8">
+          <text>"Concept Drift"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_006kuo4">
           <text>"Green"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_12k77dc">
-        <inputEntry id="UnaryTests_0n4zz63">
+      <rule id="DecisionRule_1fq38f9">
+        <inputEntry id="UnaryTests_1e8p5iq">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0o8xkwj">
+        <inputEntry id="UnaryTests_0vomnt0">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1s1g3xo">
+        <inputEntry id="UnaryTests_1f7990k">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1f1c2gl">
+        <inputEntry id="UnaryTests_1pi5cb2">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0tihofw">
+        <inputEntry id="UnaryTests_1j9ny9k">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_15tnwwv">
+        <inputEntry id="UnaryTests_03zq1ra">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0zdfj63">
+        <inputEntry id="UnaryTests_06jlruy">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1t1j5pk">
+        <inputEntry id="UnaryTests_1nddtli">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1l2qtw6">
+        <inputEntry id="UnaryTests_19767qh">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_16ivctx">
-          <text></text>
+        <inputEntry id="UnaryTests_1rnxnbg">
+          <text>&gt; 1</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0pz3fxw">
-          <text>&lt;240</text>
+        <inputEntry id="UnaryTests_1dllcgn">
+          <text>&lt; 2</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_09osqku">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1b9xwmh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ft5qv8">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1xm6rdj">
-          <text>"Service Response Time"</text>
+        <outputEntry id="LiteralExpression_05ltcgn">
+          <text>"Concept Drift"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0er32ni">
-          <text>"Green"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_10qqv3t">
-        <inputEntry id="UnaryTests_07rz1z1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ka4mbk">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0302phn">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_01ipa7t">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0jjev0y">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1erj6cu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_130pprw">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0j119dj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1u2jvr7">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_07dpie4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1eckbj9">
-          <text>]240..500[</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1cg52h9">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1vjblf0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1izjlhr">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0880pie">
-          <text>"Service Response Time"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0vuwuij">
+        <outputEntry id="LiteralExpression_1n7uu1u">
           <text>"Yellow"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_000lvrz">
-        <inputEntry id="UnaryTests_0hcj70e">
+      <rule id="DecisionRule_1fwsumx">
+        <inputEntry id="UnaryTests_1yhcdyn">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0s668th">
+        <inputEntry id="UnaryTests_1gxagb5">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1ffq7i9">
+        <inputEntry id="UnaryTests_1lnbxo5">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1ax5z3k">
+        <inputEntry id="UnaryTests_11eswbx">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1y2hhlh">
+        <inputEntry id="UnaryTests_0q1agzs">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0ixuf98">
+        <inputEntry id="UnaryTests_0frdgqs">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1v88maz">
+        <inputEntry id="UnaryTests_0l6r9fd">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_10ytp6r">
+        <inputEntry id="UnaryTests_19u69bi">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1c84y6h">
+        <inputEntry id="UnaryTests_0u5td1s">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1m34s2v">
+        <inputEntry id="UnaryTests_0u1k8s8">
+          <text>&lt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a84utd">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1s3e8ib">
-          <text>&gt;=500</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1191xw5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0fl3vhu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0uiyvyx">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1vwst8x">
-          <text>"Service Response Time"</text>
+        <outputEntry id="LiteralExpression_0zz3p0p">
+          <text>"Concept Drift"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0feytcl">
-          <text>"Red"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1dtr9q8">
-        <inputEntry id="UnaryTests_0u6yre0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_020eid5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_048kgqi">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_15g45yz">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0wxu89l">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1io7pna">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0gwx663">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1fb6h99">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1fatdy4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1dfr4ke">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0tvvze8">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1400i9e">
-          <text>&gt;=90</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0t6svbw">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0s96bd4">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0th4h04">
-          <text>"Data pipeline Health"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0svck4p">
-          <text>"Red"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0xj0mpq">
-        <inputEntry id="UnaryTests_0j5yek1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0w4h505">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_08e5jtc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_04k7d4f">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1g7q3jr">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0t3tlvu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0u909yz">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_133e1yc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1mrh0cc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0l45to1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0qgctia">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1o6gvx0">
-          <text>[70..90[</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0juax5n">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0j12ibd">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0yrrlwc">
-          <text>"Data pipeline Health"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_13ldpa3">
-          <text>"Yellow"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0gz8yog">
-        <inputEntry id="UnaryTests_15p8jy5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_176yfik">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0x5ko6m">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_19o6ac5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_03x1783">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0y9swg8">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1vyhz4d">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0qn3bzy">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0z87hvc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_03bm6pp">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0as6zai">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0d4rfpd">
-          <text>&lt;70</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_14fl0xz">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_15g5mr8">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1jr4aea">
-          <text>"Data pipeline Health"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1399vxs">
-          <text>"Green"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1xrn5xf">
-        <inputEntry id="UnaryTests_1abpv6k">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0831weg">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1vckuwj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_14d3v1q">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0mzjwos">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0iv1c6h">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_086jk0w">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_00r7kaj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0tvvy7y">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_15vpkms">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_02ygz2u">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0qh70xh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0oszdwe">
-          <text>true</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_06s9uuw">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1jwilzv">
-          <text>"InfoSec Approvals"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_09gfvfn">
-          <text>"Green"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0mlp6hf">
-        <inputEntry id="UnaryTests_0tflfgz">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1vyd04i">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1c9wo7n">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0t2rm9a">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_075z4ev">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_00m0gfc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0x2hgrm">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_02tr2sk">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_03fdf4y">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0cp8au3">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0epbwj5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0taub4z">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0vnco0u">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_08apxsb">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1hql06e">
-          <text>"InfoSec Approvals"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1nr066q">
-          <text>"Red"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0yupy82">
-        <inputEntry id="UnaryTests_1focllu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1gl33ki">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1qv4yvs">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_13wn3ld">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_080sxxh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0cht76n">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1aba49l">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0jzej18">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0n8sfrl">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0st9npd">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_09ln2b3">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0v264wu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1v90f3z">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ge7tuc">
-          <text>true</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0fo852b">
-          <text>"Risk and Governance"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1x9rm7l">
-          <text>"Green"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_00m8kdl">
-        <inputEntry id="UnaryTests_0n8h24g">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_02r7fs4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0eko7fs">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1m0aagh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_06fxact">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0tgzs90">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_01cikly">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_118gauf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1u1lly8">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0p5c1b6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0k51nw2">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_09xitj6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ivn60i">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0hat65c">
-          <text>false</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_15huwhj">
-          <text>"Risk and Governance"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0pvukap">
-          <text>"Red"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_156vm6n">
-        <inputEntry id="UnaryTests_14hy1rq">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0hxz61x">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0hxvry5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_175jwl4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0l6qf9s">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1355f01">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0251vju">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_180osaa">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_01ecl70">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0wkqdk3">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0fwtoxe">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_10mvkvf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ycm6lu">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_095yqyr">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0ogtvsm">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_12lrk52">
-          <text></text>
+        <outputEntry id="LiteralExpression_186pu1t">
+          <text>"Gray"</text>
         </outputEntry>
       </rule>
     </decisionTable>

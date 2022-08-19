@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_084v4bo" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.2.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_084v4bo" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="Decision_1x01d5h" name="Dashboard errors">
     <decisionTable id="DecisionTable_1p3vw2a" hitPolicy="COLLECT">
       <input id="InputClause_1vf50do" label="Characteristic_Stability_testResult" camunda:inputVariable="heatMap_Characteristic_Stability_testResult">
@@ -27,23 +27,8 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_063c2p4" label="heatMap_Service_Response_Time_testResult" camunda:inputVariable="heatMap_Service_Response_Time_testResult">
-        <inputExpression id="LiteralExpression_15w6rqj" typeRef="string">
-          <text></text>
-        </inputExpression>
-      </input>
-      <input id="InputClause_0rhu0at" label="heatMap_Data_pipeline_Health_testResult" camunda:inputVariable="heatMap_Data_pipeline_Health_testResult">
-        <inputExpression id="LiteralExpression_03ebo6a" typeRef="string">
-          <text></text>
-        </inputExpression>
-      </input>
-      <input id="InputClause_18pimks" label="heatMap_Risk_and_Governance_testResult" biodi:width="371" camunda:inputVariable="heatMap_Risk_and_Governance_testResult">
-        <inputExpression id="LiteralExpression_1jzcduu" typeRef="string">
-          <text></text>
-        </inputExpression>
-      </input>
-      <input id="InputClause_04hja0o" label="heatMap_InfoSec_Approvals_testResult" biodi:width="368" camunda:inputVariable="heatMap_InfoSec_Approvals_testResult">
-        <inputExpression id="LiteralExpression_14clajj" typeRef="string">
+      <input id="InputClause_1snhx0y" label="Concept_Drift_testResult" camunda:inputVariable="heatMap_Concept_Drift_testResult">
+        <inputExpression id="LiteralExpression_15hza3z" typeRef="string">
           <text></text>
         </inputExpression>
       </input>
@@ -66,16 +51,7 @@
         <inputEntry id="UnaryTests_1ybgza2">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_00n2vsw">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_10nk5i8">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0zgar13">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_00ano2v">
+        <inputEntry id="UnaryTests_0422m01">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dut0ej">
@@ -104,16 +80,7 @@
         <inputEntry id="UnaryTests_19u6chx">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_03b4aks">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0cdnhpj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1dvru03">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_077755e">
+        <inputEntry id="UnaryTests_0xt5qra">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0zoc79w">
@@ -142,16 +109,7 @@
         <inputEntry id="UnaryTests_1vjjcp9">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0kkgknv">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0go4erq">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_13vj0xf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0mhwsnh">
+        <inputEntry id="UnaryTests_1pre7el">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0pc1cs6">
@@ -180,16 +138,7 @@
         <inputEntry id="UnaryTests_0c7xbs6">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_18orsgy">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0b2d95k">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_06vdo8u">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0u638g1">
+        <inputEntry id="UnaryTests_1tjpl5z">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0imh6n7">
@@ -218,16 +167,7 @@
         <inputEntry id="UnaryTests_1x34qg4">
           <text>"Red"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0071aps">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0vultjf">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0dzelcm">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1owlesa">
+        <inputEntry id="UnaryTests_1m6fgmj">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dfixvf">
@@ -256,139 +196,16 @@
         <inputEntry id="UnaryTests_11ypsp3">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_06ey03x">
+        <inputEntry id="UnaryTests_1png9tk">
           <text>"Red"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0j1ww63">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ugb3zn">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ln4pj8">
-          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ne8xmb">
           <text>false</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1smwt7e">
-          <text>"Service Response Time above SLA"</text>
+          <text>"Concept Drift monitor didn't meet the expected thresholds"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1n0iird">
-          <text>"Dashboard Thresholds"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1pcwug8">
-        <inputEntry id="UnaryTests_14fgphc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1e3jo44">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1oszx7q">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_19kicf4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0f4cv2q">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1pkokbe">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_03at0am">
-          <text>"Red"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0wrq23c">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16upwo2">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0vybh7u">
-          <text>false</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1kwcwlj">
-          <text>"Data Pipeline failed healthchecks"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_129dzja">
-          <text>"Dashboard Thresholds"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1quzxkm">
-        <inputEntry id="UnaryTests_1sno80z">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1pvchus">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_15l98p0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0yyov9d">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ith250">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_08ed4o7">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_163r6ur">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0do7rvl">
-          <text>"Red"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_087uc58">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1ps9d5m">
-          <text>false</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_00me0kf">
-          <text>"Model is no longer compliant with Risk and Governance Requirements"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0ktarj3">
-          <text>"Dashboard Thresholds"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1x7hdrh">
-        <inputEntry id="UnaryTests_1dgsq79">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1lc1myh">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0exu46p">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1d8y9cm">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ffn5qx">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_073x1on">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1rjih6g">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_19xfm4v">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1si3f0j">
-          <text>"Red"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1uvy518">
-          <text>false</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0iguapw">
-          <text>"Model is no longer compliant with Infosec guidelines and Requirements"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1406vvj">
           <text>"Dashboard Thresholds"</text>
         </outputEntry>
       </rule>
