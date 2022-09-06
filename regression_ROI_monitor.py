@@ -1,12 +1,14 @@
 from modelop_sdk.utils import dashboard_utils
 import modelop_sdk.utils.logging as logger
+import modelop.schema.infer as infer
+import json
 import pandas as pd
 
 LOG = logger.configure_logger()
 
 
 # modelop.init
-def calculate_roi(comparator, deployable_model, input_schema):
+def calculate_roi(comparator, job_json):
     """
     A function to set model-specific global variables used in ROI computations.
     """
@@ -31,8 +33,22 @@ def calculate_roi(comparator, deployable_model, input_schema):
     ## Creating a copy because the current actual_roi implementation modifies the comparatator df
     comparator_copy = comparator.copy()
 
+    try:
+        job = json.loads(job_json["rawJson"])
+        deployable_model = job.get("referenceModel", None)
+    except Exception as ex:
+        error_message = "referenceModel parameter not found on job_json"
+        LOG.error(error_message)
+        raise KeyError(error_message)
+
     if deployable_model is None or len(deployable_model) == 0:
         raise ValueError("deployed_model is None or empty")
+
+    try:
+        input_schema = infer.extract_input_schema(job_json)
+    except Exception as ex:
+        LOG.error(f"Error while extracting input_schema - {str(ex)}")
+        input_schema = None
 
     if input_schema is None or len(input_schema) == 0:
         raise ValueError("input_schema is None or empty")
@@ -171,6 +187,16 @@ def get_fields(input_schema: dict = None) -> dict:
                         f"Error: More than one fields marked as 'baseline_field' found, only one is allowed."
                     )
             baseline_field = field.get("name")
+
+    if label_field is any or baseline_field is any or action_field is any:
+        message = ''
+        if label_field is any:
+            message += 'One field must be marked as role "label" in the schema, but none was found. '
+        if baseline_field is any:
+            message += 'One field must be marked with the attribute "actionTaken" in the schema, but none was found. '
+        if action_field is any:
+            message += 'One field must be marked with the attribute "baselineValue" in the schema, but none was found. '
+        raise ValueError(f"Error: {str(message)}")
 
     return {
         "label_field": label_field, # Column containing ground_truth

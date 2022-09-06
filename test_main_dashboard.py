@@ -1,11 +1,7 @@
 import unittest
-import pandas as pd
-import json
-import main_dashboard_model as main_dashboard_model
 
 
 class MainDashboardTests(unittest.TestCase):
-
     def test_placeholder(self):
         assert True
 
@@ -55,7 +51,6 @@ class MainDashboardTests(unittest.TestCase):
     #         except Exception as ex:
     #             print(str(ex))
     #             print(str(result).replace("'", "\""))
-
 
     #
     # def test_no_input_schema(self):
@@ -147,5 +142,5 @@ class MainDashboardTests(unittest.TestCase):
 #     print(f" positive_class_field {positive_class_field}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
