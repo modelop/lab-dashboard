@@ -193,9 +193,9 @@ def get_fields(input_schema: dict = None) -> dict:
         if label_field is any:
             message += 'One field must be marked as role "label" in the schema, but none was found. '
         if baseline_field is any:
-            message += 'One field must be marked with the attribute "actionTaken" in the schema, but none was found. '
+            message += 'One field must be marked with the attribute actionTaken in the schema, but none was found. '
         if action_field is any:
-            message += 'One field must be marked with the attribute "baselineValue" in the schema, but none was found. '
+            message += 'One field must be marked with the attribute baselineValue in the schema, but none was found. '
         raise ValueError(f"Error: {str(message)}")
 
     return {
