@@ -178,13 +178,13 @@ def get_fields(input_schema: dict = None) -> dict:
         elif field.get("actionTaken") is not None and field.get("actionTaken") == True:
             if action_field is not any:
                 raise ValueError(
-                    f"Error: More than one fields marked as 'action_field' found, only one is allowed."
+                    f"Error: More than one fields marked as action_field found, only one is allowed."
                 )
             action_field = field.get("name")
         elif field.get("baselineValue") is not None and field.get("baselineValue") == True:
             if baseline_field is not any:
                 raise ValueError(
-                        f"Error: More than one fields marked as 'baseline_field' found, only one is allowed."
+                        f"Error: More than one fields marked as baseline_field found, only one is allowed."
                     )
             baseline_field = field.get("name")
 
