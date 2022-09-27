@@ -149,9 +149,13 @@ def metrics(baseline, comparator) -> dict:
 
     try:
         # Characteristic Stability Monitor
-        monitor_results.update(
-            characteristic_stability_monitor.calculate_stability(baseline, comparator, INIT_PARAM)
-        )
+        if MODEL_CUSTOM_METADATA["Monitor_Stability"]:
+            monitor_results.update(
+                characteristic_stability_monitor.calculate_stability(baseline, comparator, INIT_PARAM)
+            )
+        else:
+            monitor_results["characteristic_stability_max_stability_index"] = -1
+    
     except Exception as ex:
         monitor_results["characteristic_stability_max_stability_index"] = -1
         error_message = f"Something went wrong with Characteristic Stability monitor: {str(ex)}"
