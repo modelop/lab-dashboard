@@ -211,7 +211,7 @@ def calculate_concept_drift(baseline, comparator, execution_errors_array) -> dic
         error_message = f"Something went wrong with Concept Drift monitor: {str(err)}"
         LOG.error(error_message)
         execution_errors_array.append(error_message)
-        return {"DataDrift_maxKolmogorovSmirnovPValue": -99}
+        return {"ConceptDrift_maxKolmogorov-SmirnovPValueValue": -99}
 
 
 def calculate_performance(comparator, execution_errors_array) -> dict:
