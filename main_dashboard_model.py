@@ -261,7 +261,6 @@ def calculate_stability(baseline, comparator, execution_errors_array) -> dict:
     """
     try:
         if DEPLOYABLE_MODEL.get("storedModel",{}).get("modelMetaData",{}).get("custom",{}).get("Monitor_Stability",{}):
-       
             dashboard_utils.assert_df_not_none_and_not_empty(baseline, "Required baseline")
             dashboard_utils.assert_df_not_none_and_not_empty(
                 comparator, "Required comparator"
