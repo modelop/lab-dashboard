@@ -1,25 +1,17 @@
+import modelop.schema.infer as infer
+import json
 import modelop_sdk.utils.logging as logger
 from modelop_sdk.utils import dashboard_utils as dashboard_utils
 
 LOG = logger.configure_logger()
 
 
-def calculate_roi(comparator, deployable_model, input_schema) -> float:
+def calculate_roi(comparator, job_json) -> float:
     """
     Source: https://github.com/merhi-odg/actual_ROI_monitor ( This monitor has local improvements )
     Monitor required inputs:
-        1- Comparator type:dataframe
-        2- deployable_model type:dict
-        3- input_extended_schema type: dict
-
-    ---
-    Specific Input requirements:
-    2- deployable_model:
-        deployable_model.storedModel.modelMetadata.roi can't be None or empty.
-    3- input_extended_schema:
-        Should contain identifiers for:
-            - credit_amount field ( see  get_credit_amount_field_name )
-            - positive_class_label ( see get_positive_class_label )
+        1 - Comparator type: dataframe
+        2 - job_json type: dict
 
     Note: The original implementation of this monitor is modifying the input comparator dataframe, so instead this
     implementation is generating a copy of the comparator dataframe to avoid issues with other monitors during the
@@ -30,8 +22,22 @@ def calculate_roi(comparator, deployable_model, input_schema) -> float:
     ## Creating a copy because the current actual_roi implementation modifies the comparatator df
     comparator_copy = comparator.copy()
 
+    try:
+        job = json.loads(job_json["rawJson"])
+        deployable_model = job.get("referenceModel", None)
+    except Exception as ex:
+        error_message = "referenceModel parameter not found on job_json"
+        LOG.error(error_message)
+        raise KeyError(error_message)
+
     if deployable_model is None or len(deployable_model) == 0:
         raise ValueError("deployed_model is None or empty")
+
+    try:
+        input_schema = infer.extract_input_schema(job_json)
+    except Exception as ex:
+        LOG.error(f"Error while extracting input_schema - {str(ex)}")
+        input_schema = None
 
     if input_schema is None or len(input_schema) == 0:
         raise ValueError("input_schema is None or empty")
@@ -49,7 +55,8 @@ def calculate_roi(comparator, deployable_model, input_schema) -> float:
         LOG.info("Label of Positive Class: %s", positive_class_label)
     except Exception as er2:
         raise KeyError(
-            f"Error while extracting positive_class_label from input_extended_schema : {str(er2)}")
+            f"Error while extracting positive_class_label from input_extended_schema : {str(er2)}"
+        )
 
     global amount_field, label_field, score_field
     global cost_multipliers
@@ -63,17 +70,25 @@ def calculate_roi(comparator, deployable_model, input_schema) -> float:
         "TP": ROI_parameters["costMultipliersTP"],
         "FP": ROI_parameters["costMultipliersFP"],
         "TN": ROI_parameters["costMultipliersTN"],
-        "FN": ROI_parameters["costMultipliersFN"]
+        "FN": ROI_parameters["costMultipliersFN"],
     }
 
     LOG.info(f"Using cost_multipliers {str(cost_multipliers)}")
     # Classify each record in dataframe
     for idx in range(len(comparator_copy)):
-        if comparator_copy.iloc[idx][label_field] == comparator_copy.iloc[idx][score_field]:
+        if (
+            comparator_copy.iloc[idx][label_field]
+            == comparator_copy.iloc[idx][score_field]
+        ):
             comparator_copy["record_class"] = (
-                "TP" if comparator_copy.iloc[idx][label_field] == positive_class_label else "TN"
+                "TP"
+                if comparator_copy.iloc[idx][label_field] == positive_class_label
+                else "TN"
             )
-        elif comparator_copy.iloc[idx][label_field] < comparator_copy.iloc[idx][score_field]:
+        elif (
+            comparator_copy.iloc[idx][label_field]
+            < comparator_copy.iloc[idx][score_field]
+        ):
             comparator_copy["record_class"] = "FP"
         else:
             comparator_copy["record_class"] = "FN"
@@ -96,8 +111,8 @@ def compute_actual_roi(data) -> float:
     actual_roi = 0
     for idx in range(len(data)):
         actual_roi += (
-                data.iloc[idx][amount_field]
-                * cost_multipliers[data.iloc[idx]["record_class"]]
+            data.iloc[idx][amount_field]
+            * cost_multipliers[data.iloc[idx]["record_class"]]
         )
 
     return round(actual_roi, 2)
@@ -125,17 +140,22 @@ def get_credit_amount_field_name(input_schema: dict = None) -> str:
     fields_array = input_schema["fields"]
 
     if not isinstance(fields_array, list):
-        raise ValueError(f"fields_array is not an instance of array , instead {type(fields_array)}")
+        raise ValueError(
+            f"fields_array is not an instance of array , instead {type(fields_array)}"
+        )
 
     amount_field_value = None
 
     for field in fields_array:
         if field.get("isAmountField") is not None:
             # Making sure isAmountField true
-            if isinstance(field.get("isAmountField"), bool) and field.get("isAmountField"):
+            if isinstance(field.get("isAmountField"), bool) and field.get(
+                "isAmountField"
+            ):
                 if amount_field_value is not None:
                     raise ValueError(
-                        f"Error: More than one fields marked as `isAmountField` found, existing one {amount_field_value}")
+                        f"Error: More than one fields marked as `isAmountField` found, existing one {amount_field_value}"
+                    )
                 amount_field_value = field.get("name")
 
     if amount_field_value is None:
@@ -146,16 +166,16 @@ def get_credit_amount_field_name(input_schema: dict = None) -> str:
 
 def get_positive_class_label(input_schema: dict = None) -> any:
     """
-     Method that extracts the value for `positiveClassLabel` for fields with 'role':'label',
-     method throws exception if the number of `positiveClassLabel` fields != 1
+    Method that extracts the value for `positiveClassLabel` for fields with 'role':'label',
+    method throws exception if the number of `positiveClassLabel` fields != 1
 
-        input:
-            input_schema : dict - external input_schema
-        output:
-            any: `value` value for field marked as `positiveClassLabel`
-        exceptions thrown:
-            - If none fields were defined with `positiveClassLabel` then it raises ValueException.
-            - If more than one field were marked with `positiveClassLabel`, then it raises ValueException.
+       input:
+           input_schema : dict - external input_schema
+       output:
+           any: `value` value for field marked as `positiveClassLabel`
+       exceptions thrown:
+           - If none fields were defined with `positiveClassLabel` then it raises ValueException.
+           - If more than one field were marked with `positiveClassLabel`, then it raises ValueException.
 
     """
     if input_schema is None or not input_schema:
@@ -167,7 +187,9 @@ def get_positive_class_label(input_schema: dict = None) -> any:
     fields_array = input_schema["fields"]
 
     if not isinstance(fields_array, list):
-        raise ValueError(f"fields_array is not an instance of array , instead {type(fields_array)}")
+        raise ValueError(
+            f"fields_array is not an instance of array , instead {type(fields_array)}"
+        )
 
     positive_class_label = any
 
@@ -177,7 +199,8 @@ def get_positive_class_label(input_schema: dict = None) -> any:
             if field.get("positiveClassLabel") is not None:
                 if positive_class_label is not any:
                     raise ValueError(
-                        f"Error: More than one fields marked as `positiveClassLabel` found, only one is allowed")
+                        f"Error: More than one fields marked as `positiveClassLabel` found, only one is allowed"
+                    )
                 positive_class_label = field.get("positiveClassLabel")
 
     if positive_class_label is any:

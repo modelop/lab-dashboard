@@ -1,276 +1,302 @@
+import json
 from datetime import datetime
-from numpy import true_divide
-import pandas as pd
-import modelop_sdk.utils.logging as logger
-import modelop.schema.infer as infer
-from sqlalchemy import null
+
 import default_actual_roi_monitor as classification_roi_monitor
 import regression_ROI_monitor as regression_roi_monitor
-import volumetrics_count_monitor as daily_inferences_monitor
-import data_drift_monitor as data_drift_monitor
-import volumetrics_identifier_comparison_monitor as output_integrity_monitor
-import concept_drift_monitor as concept_drift_monitor
-import performance_monitor as statistical_performance_monitor_classification
-import performance_monitor_regression as statistical_performance_monitor_regression
-import stability_monitor as characteristic_stability_monitor
-import bias_disparity_monitor as ethical_fairness_monitor
-import NewRelicDashboardMonitor as new_relic_monitor
-import modelop_sdk.restclient.moc_client as moc_client
+import modelop.monitors.bias as bias
+import modelop.monitors.drift as drift
+import modelop.monitors.performance as performance
+import modelop.monitors.stability as stability
+import modelop.monitors.volumetrics as volumetrics
+import modelop.schema.infer as infer
+import modelop.utils as utils
 import modelop_sdk.apis.mlc_api as mlc
-from modelop_sdk.utils import dict_utils
-from modelop_sdk.utils import dashboard_utils
-import random
-import asyncio
-import json
-import os
+import modelop_sdk.restclient.moc_client as moc_client
+import modelop_sdk.utils.logging as logger
+from modelop_sdk.utils import dashboard_utils, dict_utils
+
 
 LOG = logger.configure_logger()
 
-INPUT_JSON = {}
-INIT_PARAM = {}
-MODEL_CUSTOM_METADATA = {}
+JOB = {}
 DEPLOYABLE_MODEL = {}
-MODEL_USE_CATEGORY = None
-MODEL_ORGANIZATION = None
-MODEL_RISK = None
-
+MODEL_METHODOLOGY = ""
 
 # modelop.init
-def init(init_param):
-    global INIT_PARAM
-    global INPUT_SCHEMA
-    global MODEL_CUSTOM_METADATA
+def init(job_json):
+    global JOB
     global DEPLOYABLE_MODEL
-    global MODEL_USE_CATEGORY
-    global MODEL_ORGANIZATION
-    global MODEL_RISK
     global MODEL_METHODOLOGY
-    global NR_OVERRIDE
 
-    job = json.loads(init_param["rawJson"])
-    DEPLOYABLE_MODEL = job.get('referenceModel')
-    INIT_PARAM = init_param
-    try:
-        INPUT_SCHEMA = infer.extract_input_schema(INIT_PARAM)
-    except Exception as ex:
-        LOG.error(f"Error while extracting input_schema - {str(ex)}")
-        INPUT_SCHEMA = None
+    job = json.loads(job_json["rawJson"])
+    DEPLOYABLE_MODEL = job.get("referenceModel", None)
+    JOB = job_json
+    MODEL_METHODOLOGY = (
+        DEPLOYABLE_MODEL.get("storedModel", {})
+        .get("modelMetaData", {})
+        .get("modelMethodology", "")
+    )
 
-    # Extract custom metadata
-    try:
-        MODEL_CUSTOM_METADATA = job["referenceModel"]["storedModel"]["modelMetaData"]["custom"]
-    except Exception as e:
-        LOG.warning(f"Required custom metadata value not present: {str(e)}")
-
-    LOG.debug(f"init function input: {str(INIT_PARAM)}")
-
-    try:
-        ### Adding additional fields - modelUseCategory + modelOrganization + modelRisk + Model Methodology
-        modelop_fields = dashboard_utils.get_default_modelop_fields_from_deployable_model(DEPLOYABLE_MODEL)
-        MODEL_USE_CATEGORY = modelop_fields["modelUseCategory"]
-        MODEL_ORGANIZATION = modelop_fields["modelOrganization"]
-        MODEL_RISK = modelop_fields["modelRisk"]
-        MODEL_METHODOLOGY = job["referenceModel"]["storedModel"]["modelMetaData"]["modelMethodology"]
-        NR_OVERRIDE = MODEL_CUSTOM_METADATA["NR_OVERRIDE"]
-    except Exception as ex:
-        error_message = f"Something went wrong when extracting modelop default fields: {str(ex)}"
-        LOG.error(error_message)
+    infer.validate_schema(job_json)
 
 
 # modelop.metrics
 def metrics(baseline, comparator) -> dict:
     LOG.info("Building monitors")
-    monitor_results = {}
+    result = {}
+
+    # some code for gr
     heat_map = {}
     flat_heatmap = {}
     execution_errors_array = []
     LOG.info("Executing monitors")
 
-    try:
-        ## Adding default Model variables
-        monitor_results["modelUseCategory"] = MODEL_USE_CATEGORY
-        monitor_results["modelOrganization"] = MODEL_ORGANIZATION
-        monitor_results["modelRisk"] = MODEL_RISK
-        monitor_results["modelMethodology"]=MODEL_METHODOLOGY
-    except Exception as ex_default_fields:
-        error_message = f"Something went wile adding default ModelOp fields: {str(ex_default_fields)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    LOG.info("-------BEGIN ROI---------")
-    try:
-        # ROI Monitor
-        if MODEL_METHODOLOGY.lower() == "regression":
-            monitor_results['actualROIAllTime'] = regression_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
-            LOG.info("ROI Calculated succeeded")
-        else:
-            monitor_results['actualROIAllTime'] = classification_roi_monitor.calculate_roi(comparator, DEPLOYABLE_MODEL, INPUT_SCHEMA)
-            LOG.info("ROI Calculator failed")
-    except Exception as rmE:
-        monitor_results["actualROIAllTime"] = "N/A"
-        error_message = f"Error in the ROI monitor: {str(rmE)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-    LOG.info("-------END ROI---------")
-
-    try:
-        # Daily inferences Monitor
-        monitor_results["allVolumetricMonitorRecordCount"] = daily_inferences_monitor.calculate_daily_inferences(
-            comparator)
-    except Exception as volE:
-        monitor_results["allVolumetricMonitorRecordCount"] = "N/A"
-        error_message = f"Error in the Volumetrics count monitor: {str(volE)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    try:
-        # Data Drift Monitor
-        LOG.info("Executing Data Drift KS monitor")
-        monitor_results.update(data_drift_monitor.calculate_data_drift(baseline, comparator, INIT_PARAM))
-        LOG.info("Data Drift KS monitor successfully executed")
-    except Exception as ex:
-        monitor_results["data_drift_max_p_value"] = -1
-        error_message = f"Error in Data Drift KS monitor: {str(ex)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    try:
-        # Output Integrity Monitor
-        monitor_results.update(
-            output_integrity_monitor.calculate_volumetrics_identifier_comparison(baseline, comparator, INIT_PARAM,
-                                                                                 remove_breakdown=True))
-    except Exception as ex:
-        monitor_results["identifiers_match"] = None
-        error_message = f"Error in Output Integrity monitor: {str(ex)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    try:
-        # Concept Drift Monitor
-        monitor_results.update(
-            concept_drift_monitor.calculate_concept_drift(baseline, comparator, INIT_PARAM))
-    except Exception as ex:
-        monitor_results["concept_drift_max_p_value"] = -1
-        error_message = f"Error in Concept Drift monitor: {str(ex)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    try:
-        # Statistical Performance Monitor
-        if MODEL_METHODOLOGY.lower() == "regression":
-           monitor_results.update(statistical_performance_monitor_regression.calculate_performance(comparator, INIT_PARAM))
-           monitor_results["statistical_performance_unit"] = "r2_score"
-        else:
-            monitor_results.update(statistical_performance_monitor_classification.calculate_performance(comparator, INIT_PARAM))
-            monitor_results["statistical_performance_unit"] = "auc"
-    except Exception as ex:
-        monitor_results["statistical_performance_unit"] = "N/A"
-        monitor_results["statistical_performance_val"] = -1
-        error_message = f"Error in Statistical Performance monitor: {str(ex)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-    try:
-        # Characteristic Stability Monitor
-        monitor_results.update(
-            characteristic_stability_monitor.calculate_stability(baseline, comparator, INIT_PARAM)
-        )
-    except Exception as ex:
-        monitor_results["characteristic_stability_max_stability_index"] = -1
-        error_message = f"Error in Characteristic Stability monitor: {str(ex)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    try:
-        # Ethical Fairness Monitor
-        monitor_results.update(
-            ethical_fairness_monitor.calculate_bias(comparator, INIT_PARAM)
-        )
-    except Exception as ex:
-        monitor_results["ethical_fairness_max_ppr_disparity"] = -1
-        monitor_results["ethical_fairness_min_ppr_disparity"] = -1
-        error_message = f"Error in Ethical Fairness monitor: {str(ex)}"
-        LOG.error(error_message)
-        execution_errors_array.append(error_message)
-
-    try:
-        # New Relic Monitor
-        entityGuid = MODEL_CUSTOM_METADATA["NR_EntityGuid"]
-        NR_OVERRIDE = MODEL_CUSTOM_METADATA["NR_OVERRIDE"]
-        apiKey = os.getenv("NEW_RELIC_API_KEY")
-        
-        loop = asyncio.new_event_loop()
-        task = loop.create_task(new_relic_monitor.get_new_relic_response_time(apiKey,entityGuid))
-        monitor_results.update(loop.run_until_complete(task))
-
-    except Exception as ex:
-        #error_message = f"Error in New Relic monitor: {str(ex)}"
-        monitor_results["Service Response Time"] = random.randint(0,500)
-        #LOG.error(error_message)
-        #execution_errors_array.append(error_message)
-
-    random.seed()
-
-    val = random.randint(0,100)
-    monitor_results["Data pipeline Health"] = val    
-
-    monitor_results["Data Usage Approval"] = MODEL_CUSTOM_METADATA["Data Usage Approval"] 
-
-    monitor_results["MRMG Approval"] = MODEL_CUSTOM_METADATA["MRMG Approval"]
-
+    result = utils.merge(
+        extract_model_fields(execution_errors_array),
+        calculate_roi(comparator, execution_errors_array),
+        calculate_daily_inferences(comparator, execution_errors_array),
+        calculate_data_drift(baseline, comparator, execution_errors_array),
+        calculate_concept_drift(baseline, comparator, execution_errors_array),
+        calculate_performance(comparator, execution_errors_array),
+        calculate_stability(baseline, comparator, execution_errors_array),
+        calculate_bias(comparator, execution_errors_array),
+    )
 
     try:
         LOG.info("Performing DMN evaluation")
         client = moc_client.MOCClient()
         mlc_api = mlc.MLCApi(client)
-        evaluated_results = mlc_api.evaluate_results(monitor_results, "dashboard_model.dmn")
-        LOG.info("Checking for NR Threshold Override")
-        
-        #handle performance override via custom metadata
-        if (NR_OVERRIDE is not None) and (NR_OVERRIDE > 0):
-            LOG.info("NR Override detected")
-            i=0
-            if monitor_results["Service Response Time"] <= NR_OVERRIDE:
-                LOG.info("Custom Threshold Passed, setting value to green")
-
-                for i, item in enumerate(evaluated_results):
-                    if item.get("monitor_name") == 'Service Response Time':
-                        break
-                LOG.info("Service Response Time object found at index: " + str(i))
-                obj = {'color':"Green",'monitor_name':"Service Response Time"}    
-                evaluated_results[i] = obj
-            else:
-                LOG.info("Custom Threshold Failed, setting value to red")   
-                                
-                for i, item in enumerate(evaluated_results):
-                    if item.get("monitor_name") == 'Service Response Time':
-                        break                       
-                LOG.info("Service Response Time object found at index: " + str(i))
-                obj = {'color':"Red",'monitor_name':"Service Response Time"}    
-                evaluated_results[i] = obj
-            LOG.info(evaluated_results)
+        evaluated_results = mlc_api.evaluate_results(result, "dashboard_model.dmn")
         LOG.info("Generating heatMap")
         heat_map["heatMap"] = dashboard_utils.generate_heatmap(evaluated_results)
         flat_heatmap = dict_utils.flatten_data(heat_map)
-        LOG.info("Generating MTR")
     except Exception as eval_ex:
         heat_map = {"heatMap": {}}
         LOG.error(str(eval_ex))
         execution_errors_array.append(
-            "Something went wrong during DMN evaluation or heatmap generation, please check logs")
+            "Something went wrong during DMN evaluation or heatmap generation, please check logs"
+        )
 
-    
-    dashboard_result = {
-        "createdDate": datetime.now().strftime('%m/%d/%Y %H:%M:%S')
-    }
-    dashboard_result.update(monitor_results)
-    dashboard_result.update(heat_map)
-    dashboard_result.update(flat_heatmap)
+    dashboard_result = {"createdDate": datetime.now().strftime("%m/%d/%Y %H:%M:%S")}
+    dashboard_result = utils.merge(
+        dashboard_result,
+        result,
+        heat_map,
+        flat_heatmap,
+    )
 
     dashboard_result.update({"executionErrors": execution_errors_array})
     dashboard_result.update({"executionErrorsCount": len(execution_errors_array)})
-    LOG.info("------Monitor Complete-----")
+
     yield dashboard_result
 
 
+def extract_model_fields(execution_errors_array):
+    try:
+        return {
+            "modelUseCategory": DEPLOYABLE_MODEL.get("storedModel", {})
+            .get("modelMetaData", {})
+            .get("modelUseCategory", ""),
+            "modelOrganization": DEPLOYABLE_MODEL.get("storedModel", {})
+            .get("modelMetaData", {})
+            .get("modelOrganization", ""),
+            "modelRisk": DEPLOYABLE_MODEL.get("storedModel", {})
+            .get("modelMetaData", {})
+            .get("modelRisk", ""),
+            "modelMethodology": MODEL_METHODOLOGY,
+        }
+    except Exception as ex:
+        error_message = (
+            f"Something went wrong when extracting modelop default fields: {str(ex)}"
+        )
+        execution_errors_array.append(error_message)
+        LOG.error(error_message)
+        return {}
 
 
+def calculate_roi(comparator, execution_errors_array) -> dict:
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        if "regression" in MODEL_METHODOLOGY.casefold():
+            return {
+                "actualROIAllTime": regression_roi_monitor.calculate_roi(comparator, JOB)
+            }
+        else:
+            return {
+                "actualROIAllTime": classification_roi_monitor.calculate_roi(comparator, JOB)
+            }
+    except Exception as err:
+        error_message = f"Something went wrong with the ROI monitor: {str(err)}"
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"actualROIAllTime": "N/A"}
+
+
+def calculate_daily_inferences(comparator, execution_errors_array) -> dict:
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        volumetric_monitor = volumetrics.VolumetricMonitor(comparator)
+        # Initialize Volumetric monitor with 1st input DataFrame
+        return {
+            "allVolumetricMonitorRecordCount": volumetric_monitor.count()[
+                "record_count"
+            ]
+        }
+    except Exception as err:
+        error_message = (
+            f"Something went wrong with the Volumetrics count monitor: {str(err)}"
+        )
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"allVolumetricMonitorRecordCount": "N/A"}
+
+
+def calculate_data_drift(baseline, comparator, execution_errors_array) -> dict:
+    """
+    Evaluation Metrics Source:https://modelop.atlassian.net/wiki/spaces/~355140182/pages/2286944283/Dashboard+3.0+monitors:
+        max( <feature_1>: <p-value>,...:...,<feature_n>: <p-value>)
+        i.e. the max of all the p-values across all the features
+    ---- Heatmap criteria
+        max(p-value) > 2 → RED
+        1 < max(p-value) < 2 → YELLOW
+        max(p-value) < 1 → GREEN
+        max(p-value) IS NULL or test fails → GRAY
+    """
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(baseline, "Required baseline")
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        drift_monitor = drift.DriftDetector(
+            df_baseline=baseline, df_sample=comparator, job_json=JOB
+        )
+
+        return drift_monitor.calculate_drift(pre_defined_test="Kolmogorov-Smirnov")
+    except Exception as err:
+        error_message = f"Something went wrong with Data Drift KS monitor: {str(err)}"
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"DataDrift_maxKolmogorov-SmirnovPValue": -99}
+
+
+def calculate_concept_drift(baseline, comparator, execution_errors_array) -> dict:
+    """
+    Evaluation Metrics (Source:https://modelop.atlassian.net/wiki/spaces/~355140182/pages/2286944283/Dashboard+3.0+monitors):
+        max( <score_column>: <p-value>)
+        i.e. the max of all the p-values across the score columns (usually there is only one but there could
+        be multiple)
+    ---- Heatmap criteria
+        max(p-value) > 2 → RED
+        1 < max(p-value) < 2 → YELLOW
+        max(p-value) < 1 → GREEN
+        max(p-value) IS NULL or test fails → GRAY
+
+    """
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(baseline, "Required baseline")
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        concept_drift_monitor = drift.ConceptDriftDetector(
+            df_baseline=baseline, df_sample=comparator, job_json=JOB
+        )
+        return concept_drift_monitor.calculate_concept_drift(
+            pre_defined_test="Kolmogorov-Smirnov"
+        )
+    except Exception as err:
+        error_message = f"Something went wrong with Concept Drift monitor: {str(err)}"
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"ConceptDrift_maxKolmogorov-SmirnovPValueValue": -99}
+
+
+def calculate_performance(comparator, execution_errors_array) -> dict:
+    """
+    Evaluation Metrics (Source:https://modelop.atlassian.net/wiki/spaces/~355140182/pages/2286944283/Dashboard+3.0+monitors):
+        <auc>
+    ---- Heatmap criteria
+        <auc> > 0.7 → GREEN
+        0.6 < <auc> < 0.7 → YELLOW
+        <auc> < 0.6 → RED
+        <auc> IS NULL or test fails → GRAY
+    """
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        performance_monitor = performance.ModelEvaluator(
+            dataframe=comparator, job_json=JOB
+        )
+        if "regression" in MODEL_METHODOLOGY.casefold():
+            return performance_monitor.evaluate_performance(
+                pre_defined_metrics="regression_metrics"
+            )
+        else:
+            return performance_monitor.evaluate_performance(
+                pre_defined_metrics="classification_metrics"
+            )
+    except Exception as err:
+        error_message = (
+            f"Something went wrong with Statistical Performance monitor: {str(err)}"
+        )
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"auc": -99}
+
+
+def calculate_stability(baseline, comparator, execution_errors_array) -> dict:
+    """
+    Evaluation Metrics (Source:https://modelop.atlassian.net/wiki/spaces/~355140182/pages/2286944283/Dashboard+3.0+monitors):
+        max( <predictive_feature.stability_index>:)
+        i.e. the max of all the stability indexes across all features
+    ---- Heatmap criteria
+        max(stability_index) > 0.2 → RED
+        0.1 < max(stability_index) < 0.2 → YELLOW
+        max(stability_index) < 0.1 → GREEN
+        max(stability_index) IS NULL or test fails → GRAY
+    """
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(baseline, "Required baseline")
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        stability_monitor = stability.StabilityMonitor(
+            baseline, comparator, job_json=JOB
+        )
+        return stability_monitor.compute_stability_indices()
+    except Exception as err:
+        error_message = (
+            f"Something went wrong with Characteristic Stability monitor: {str(err)}"
+        )
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"CSI_maxCSIValue": -99}
+
+
+def calculate_bias(comparator, execution_errors_array) -> dict:
+    """
+    Evaluation Metrics (Source:https://modelop.atlassian.net/wiki/spaces/~355140182/pages/2286944283/Dashboard+3.0+monitors):
+        max(ppr_disparity) and min(ppr_disparity) across all protected classes
+    ---- Heatmap criteria
+        max(ppr_disparity)>1.2 or min(ppr_disparity) <0.8  → RED
+        max(ppr_disparity)<1.2 or min(ppr_disparity) >0.8  → GREEN
+    """
+    try:
+        dashboard_utils.assert_df_not_none_and_not_empty(
+            comparator, "Required comparator"
+        )
+        if "regression" in MODEL_METHODOLOGY.casefold():
+            raise Exception("Bias monitor can not be run for regression models.")
+        bias_monitor = bias.BiasMonitor(dataframe=comparator, job_json=JOB)
+        return bias_monitor.compute_bias_metrics()
+    except Exception as err:
+        error_message = (
+            f"Something went wrong with Ethical Fairness monitor: {str(err)}"
+        )
+        LOG.error(error_message)
+        execution_errors_array.append(error_message)
+        return {"Bias_maxPPRDisparityValue": -99, "Bias_minPPRDisparityValue": -99}
