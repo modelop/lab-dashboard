@@ -260,14 +260,19 @@ def calculate_stability(baseline, comparator, execution_errors_array) -> dict:
         max(stability_index) IS NULL or test fails → GRAY
     """
     try:
-        dashboard_utils.assert_df_not_none_and_not_empty(baseline, "Required baseline")
-        dashboard_utils.assert_df_not_none_and_not_empty(
-            comparator, "Required comparator"
-        )
-        stability_monitor = stability.StabilityMonitor(
-            baseline, comparator, job_json=JOB
-        )
-        return stability_monitor.compute_stability_indices()
+        if DEPLOYABLE_MODEL.get("storedModel",{}).get("modelMetaData",{}).get("custom",{}).get("Monitor_Stability",{}):
+       
+            dashboard_utils.assert_df_not_none_and_not_empty(baseline, "Required baseline")
+            dashboard_utils.assert_df_not_none_and_not_empty(
+                comparator, "Required comparator"
+            )
+            stability_monitor = stability.StabilityMonitor(
+                baseline, comparator, job_json=JOB
+            )
+            return stability_monitor.compute_stability_indices()
+        else: 
+            raise Exception('Skipping Stability Monitor due to model configuration')
+
     except Exception as err:
         error_message = (
             f"Something went wrong with Characteristic Stability monitor: {str(err)}"
