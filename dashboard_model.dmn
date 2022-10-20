@@ -7,7 +7,7 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1q3su5i" label="auc">
+      <input id="InputClause_1q3su5i" label="f1_score">
         <inputExpression id="LiteralExpression_10l3nt5" typeRef="string">
           <text>modelMethodology</text>
         </inputExpression>
@@ -164,7 +164,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0tzmewz" expressionLanguage="groovy">
-          <text>!modelMethodology.equals("regression") &amp;&amp; auc ==-99</text>
+          <text>modelMethodology.equalsIgnoreCase("classification") &amp;&amp; f1_score ==-99</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1rrldzb">
           <text></text>
@@ -193,7 +193,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0nvbvoa" expressionLanguage="groovy">
-          <text>!modelMethodology.equals("regression") &amp;&amp; auc &lt;= 0.6</text>
+          <text>modelMethodology.equalsIgnoreCase("classification") &amp;&amp; f1_score &lt;= 0.6</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jfamg0">
           <text></text>
@@ -222,7 +222,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_18tqy6y" expressionLanguage="groovy">
-          <text>!modelMethodology.equals("regression")&amp;&amp; auc&gt; 0.6 &amp;&amp; auc&lt; 0.7</text>
+          <text>modelMethodology.equalsIgnoreCase("classification")&amp;&amp; f1_score &gt; 0.6 &amp;&amp; f1_score &lt; 0.7</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ezdlg8">
           <text></text>
@@ -251,7 +251,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_013qhqz" expressionLanguage="groovy">
-          <text>!modelMethodology.equals("regression") &amp;&amp; auc &gt;=0.7</text>
+          <text>modelMethodology.equalsIgnoreCase("classification") &amp;&amp; f1_score &gt;=0.7</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1f184pw">
           <text></text>
@@ -283,7 +283,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0f4ocmy" expressionLanguage="groovy">
-          <text>modelMethodology.equals("regression") &amp;&amp;r2_score==99</text>
+          <text>modelMethodology.equalsIgnoreCase("regression") &amp;&amp;r2_score==99</text>
         </inputEntry>
         <inputEntry id="UnaryTests_14kx60s">
           <text></text>
@@ -312,7 +312,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ct2ujv" expressionLanguage="groovy">
-          <text>modelMethodology.equals("regression") &amp;&amp;r2_score&lt;= 0.6</text>
+          <text>modelMethodology.equalsIgnoreCase("regression") &amp;&amp;r2_score&lt;= 0.6</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0e7prg4">
           <text></text>
@@ -341,7 +341,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_161hod3" expressionLanguage="groovy">
-          <text>modelMethodology.equals("regression") &amp;&amp;r2_score&gt;0.6 &amp;&amp; r2_score&lt; 0.7</text>
+          <text>modelMethodology.equalsIgnoreCase("regression") &amp;&amp;r2_score&gt;0.6 &amp;&amp; r2_score&lt; 0.7</text>
         </inputEntry>
         <inputEntry id="UnaryTests_09srnx3">
           <text></text>
@@ -370,7 +370,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1fmmu71" expressionLanguage="groovy">
-          <text>modelMethodology.equals("regression") &amp;&amp; r2_score &gt;=0.7</text>
+          <text>modelMethodology.equalsIgnoreCase("regression") &amp;&amp; r2_score &gt;=0.7</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0k3yyhq">
           <text></text>
