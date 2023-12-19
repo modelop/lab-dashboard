@@ -43,7 +43,7 @@ def init(job_json):
 
 
 # modelop.metrics
-def metrics(baseline) -> dict:
+def metrics(baseline, comparator) -> dict:
     dashboard_result = {
         "createdDate": datetime.now().strftime('%m/%d/%Y %H:%M:%S'),
         "modelUseCategory": "INSURANCE",
