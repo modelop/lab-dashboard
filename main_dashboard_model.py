@@ -63,7 +63,7 @@ def init(job_json):
 
 
 # modelop.metrics
-def metrics(baseline) -> dict:
+def metrics(baseline, comparator) -> dict:
     # result = {}
     # heat_map = {}
     # flat_heatmap = {}
@@ -334,7 +334,8 @@ def main():
 
     init(init_param)
     df1 = pd.read_csv("example_data.csv")
-    print(json.dumps(next(metrics(df1)), indent=2))
+    df2 = pd.read_csv("example_data.csv")
+    print(json.dumps(next(metrics(df1, df2)), indent=2))
 
 
 if __name__ == '__main__':
