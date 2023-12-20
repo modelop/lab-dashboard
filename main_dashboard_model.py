@@ -71,7 +71,7 @@ def metrics(baseline, comparator) -> dict:
     global QUARTER
 
     dashboard_result = {
-        "Dashboard Updated Date": datetime.now().strftime('%m/%d/%Y %H:%M:%S'),
+        "createdDate": datetime.now().strftime('%m/%d/%Y %H:%M:%S'),
     }
 
     primary_metrics = {
