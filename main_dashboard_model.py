@@ -140,13 +140,13 @@ def metrics(baseline, comparator) -> dict:
     test_results = '''
     {
         "test results": {
-            "Primary Metrics": {
+            "Primary Metrics": [
                 "Metric 1": 24,
                 "Metric 2": 0.42,
                 "Metric 3": "NA",
                 "Metric 4": 2, 
                 "Metric 5": "True"
-            }
+            ]
         }
     }
     '''
