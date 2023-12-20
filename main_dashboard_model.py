@@ -75,11 +75,11 @@ def metrics(baseline, comparator) -> dict:
 
     primary_metrics = {
         "Primary Metrics": [
-            {"":1,"Metric": "Outcome 1", "Value": "False"},
-            {"":2,"Metric": "Outcome 2", "Value": "True"},
-            {"":3,"Metric": "Outcome 3", "Value": "0.284"},
-            {"":4,"Metric": "Data 1", "Value": "True"},
-            {"":5,"Metric": "Data 2", "Value": "True"}
+            {"":1,"Metric": "Cumulative Defaults by Segment", "Value": "Within Threshold"},
+            {"":2,"Metric": "Cumulative Defaults by FICO", "Value": "Outside Threshold"},
+            {"":3,"Metric": "Prepayment by Segment", "Value": "Within Threshold"},
+            {"":4,"Metric": "Ending Balance by Segment", "Value": "Within Threshold"},
+            {"":5,"Metric": "Cumulative Defaults by CLTV", "Value": "Within Threshold"}
         ]
     }
 
@@ -144,7 +144,7 @@ def metrics(baseline, comparator) -> dict:
         "Model Organization": generate_org(),
         "Last Report Quarter": QUARTER,
         "Last Report Rating": RATING,
-        "Last Report": "https://mocaasin.modelop.center/#/models/business-models/snapshot/ee2542c4-8b49-40f9-b80a-21ab09e70781/monitoring/tests/97c835e8-b2b6-42e5-96b1-939460b449fc"
+        "Last Report": "https://mocaasin.modelop.center/#/models/business-models/snapshot/ee2542c4-8b49-40f9-b80a-21ab09e70781/monitoring/tests/9b655d5b-34f8-4287-aae9-71362289ceb2"
     }
 
     dashboard_result.update(summary_results)
