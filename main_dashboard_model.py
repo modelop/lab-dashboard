@@ -2,7 +2,7 @@ import json
 import re
 from datetime import datetime
 from typing import List, Optional, Dict
-
+import random
 import modelop.schema.infer as infer
 import modelop.utils as utils
 import modelop_sdk.apis.mlc_api as mlc
@@ -14,6 +14,13 @@ import uuid
 from dateutil.parser import parse
 
 LOG = logger.configure_logger()
+
+heatMapColors = ["Gray", "Green", "Green", "Green", "Green", "Green", "Green", "Green", "Yellow", "Green", "Green",
+                 "Green", "Green", "Green", "Green", "Red"]
+
+def generate_heatmap_color() -> str:
+    return heatMapColors[random.randint(0, len(heatMapColors) - 1)]
+
 
 JOB = {}
 DEPLOYABLE_MODEL = {}
@@ -118,6 +125,8 @@ def metrics(baseline, comparator) -> dict:
     # ]))
 
     #yield dashboard_result
+
+
     dashboard_result = {
         "createdDate": datetime.now().strftime('%m/%d/%Y %H:%M:%S'),
         "modelUseCategory": "INSURANCE",
@@ -127,6 +136,19 @@ def metrics(baseline, comparator) -> dict:
     {
     "summary results":"this is a summary result"
     }  
+    '''
+    test_results = '''
+    {
+        "test results": {
+            "Primary Metrics": {
+                "Metric 1": 24,
+                "Metric 2": 0.42,
+                "Metric 3": "NA",
+                "Metric 4": 2, 
+                "Metric 5": "True"
+            }
+        }
+    }
     '''
     custom_cards = '''
     {
