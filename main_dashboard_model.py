@@ -12,20 +12,29 @@ from modelop_sdk.utils import dashboard_utils, dict_utils
 import modelop_sdk.apis.model_manage_api as model_manage
 import uuid
 from dateutil.parser import parse
+from pathlib import Path
+import pandas as pd
 
 LOG = logger.configure_logger()
+RATING = {}
 
-heatMapColors = ["Gray", "Green", "Green", "Green", "Green", "Green", "Green", "Green", "Yellow", "Green", "Green",
-                 "Green", "Green", "Green", "Green", "Red"]
+heatMapColors = ["Gray", "Yellow", "Green", "Green", "Green", "Green", "Red"]
 aryOrgs = ["Insurance","Residuals","Credit","Fraud","AML","Insider Threats","Marketing","Trade Analytics","Capital Markets","Asset Management","Payments","Lockbox OCR"]
-aryRatings = ["Use Caution","Not performing","As Expected","As Expected","As Expected","As Expected","As Expected"]
+aryRatings = ["Use Caution","Not performing","As Expected","As Expected"]
 aryQuarter = ["FY23 Q1","FY23 Q2","FY23 Q3","FY23 Q4"]
 def generate_heatmap_color() -> str:
-    return heatMapColors[random.randint(0, len(heatMapColors) - 1)]
+    global RATING
+    print(RATING)
+    if RATING == "As Expected":
+        return "Green"
+    else:
+        return heatMapColors[random.randint(0, len(heatMapColors) - 1)]
 def generate_org() -> str:
     return aryOrgs[random.randint(0,len(aryOrgs) - 1)]
 def generate_rating() -> str:
-    return aryRatings[random.randint(0,len(aryRatings) - 1)]
+    global RATING
+    RATING = aryRatings[random.randint(0,len(aryRatings) - 1)]
+    return RATING
 def generate_quarter() -> str:
     return aryQuarter[random.randint(0,len(aryQuarter) - 1)]
 def generate_category() -> str:
@@ -54,7 +63,7 @@ def init(job_json):
 
 
 # modelop.metrics
-def metrics(baseline, comparator) -> dict:
+def metrics(baseline) -> dict:
     # result = {}
     # heat_map = {}
     # flat_heatmap = {}
@@ -312,3 +321,21 @@ def parse_number(value):
     if value is None:
         return "N/A"
     return float(re.sub(r'[^\w.]', '', str(value)))
+
+#
+# This main method is utilized to simulate what the engine will do when calling the above metrics function.  It takes
+# the json formatted data, and converts it to a pandas dataframe, then passes this into the metrics function for
+# processing.  This is a good way to develop your models to be conformant with the engine in that you can run this
+# locally first and ensure the python is behaving correctly before deploying on a ModelOp engine.
+#
+def main():
+    raw_json = Path('example_job.json').read_text()
+    init_param = {'rawJson': raw_json}
+
+    init(init_param)
+    df1 = pd.read_csv("example_data.csv")
+    print(json.dumps(next(metrics(df1)), indent=2))
+
+
+if __name__ == '__main__':
+    main()
