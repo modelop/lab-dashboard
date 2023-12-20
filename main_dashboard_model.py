@@ -25,7 +25,6 @@ aryRatings = ["Use Caution","Not performing","As Expected","As Expected"]
 aryQuarter = ["FY23 Q1","FY23 Q2","FY23 Q3","FY23 Q4"]
 def generate_heatmap_color() -> str:
     global RATING
-    print(RATING)
     if RATING == "As Expected":
         return "Green"
     else:
@@ -89,10 +88,10 @@ def metrics(baseline, comparator) -> dict:
       "customCards": [
         {
           "name":"# of Models",
-          "value":"1"
+          "value": 1
         }, {
           "name":"# of Reports",
-          "value":"1"
+          "value": 1
         }
       ]
     }  
@@ -134,7 +133,6 @@ def metrics(baseline, comparator) -> dict:
     }
     flat_heatmap = '''
     {
-    "summary results":"this is a summary result"
     }  
     '''
     dashboard_result.update(primary_metrics)
