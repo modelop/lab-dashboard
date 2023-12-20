@@ -1,6 +1,6 @@
 {
-    "tags": [],
-    "name": "Default Dashboard Model",
+    "tags": ["monitor"],
+    "name": "Dashboard 1",
     "description": "Runs default monitors on a base business model generating data for the main MOC Dashboard",
     "modelCategory": "MODEL_MONITORING_MODEL",
     "defaultAssociationRole": "METRICS_MODEL",
