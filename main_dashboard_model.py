@@ -213,7 +213,7 @@ def metrics(baseline, comparator) -> dict:
     }  
     '''
     dashboard_result.update(json.loads(summary_results))
-    dashboard_result.update(json.loads(primary_metrics))
+    dashboard_result.update(primary_metrics)
     #dashboard_result.update(json.loads(custom_cards))
     dashboard_result.update(json.loads(custom_cols))
     dashboard_result.update(json.loads(heatmap))
