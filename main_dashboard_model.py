@@ -25,9 +25,9 @@ def generate_heatmap_color() -> str:
 def generate_org() -> str:
     return aryOrgs[random.randint(0,len(aryOrgs) - 1)]
 def generate_rating() -> str:
-    return aryRatings[random.randint(0,len(aryOrgs) - 1)]
+    return aryRatings[random.randint(0,len(aryRatings) - 1)]
 def generate_quarter() -> str:
-    return aryQuarter[random.randint(0,len(aryOrgs) - 1)]
+    return aryQuarter[random.randint(0,len(aryQuarter) - 1)]
 def generate_category() -> str:
     return ""
 
