@@ -149,22 +149,22 @@ def metrics(baseline, comparator) -> dict:
     }
     '''
 
-    custom_cards = '''
-    {
-      "customCards": [
-        {
-          "name":"# of Models",
-          "value":"1"
-        }, {
-          "name":"# of Reports",
-          "value":"1"
-        }, {
-          "name":"# of Pending Reports",
-          "value":"1"
-        }
-      ]
-    }  
-    '''
+    # custom_cards = '''
+    # {
+    #   "customCards": [
+    #     {
+    #       "name":"# of Models",
+    #       "value":"1"
+    #     }, {
+    #       "name":"# of Reports",
+    #       "value":"1"
+    #     }, {
+    #       "name":"# of Pending Reports",
+    #       "value":"1"
+    #     }
+    #   ]
+    # }  
+    # '''
     custom_cols = '''
     {
       "customColumns": [
@@ -210,7 +210,7 @@ def metrics(baseline, comparator) -> dict:
     '''
     dashboard_result.update(json.loads(summary_results))
     dashboard_result.update(json.loads(primary_metrics))
-    dashboard_result.update(json.loads(custom_cards))
+    #dashboard_result.update(json.loads(custom_cards))
     dashboard_result.update(json.loads(custom_cols))
     dashboard_result.update(json.loads(heatmap))
     dashboard_result.update(json.loads(flat_heatmap))
