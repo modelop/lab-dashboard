@@ -140,8 +140,11 @@ def metrics(baseline, comparator) -> dict:
     primary_metrics = '''
     {
         "Primary Metrics": [
-            {"Metric 1": "True", "Metric 2": "False", "Metric 3": 123, "Metric 4": "hello"},
-            {"Metric 1": "False", "Metric 2": "True", "Metric 3": 312, "Metric 4": "world"}
+            {"":1,"Metric": "Outcome 1", "Value": "False"},
+            {"":2,"Metric": "Outcome 2", "Value": "True"},
+            {"":3,"Metric": "Outcome 3", "Value": 0.284},
+            {"":4,"Metric": "Data 1", "Value": "True"},
+            {"":5,"Metric": "Data 2", "Value": "True"}
         ]
     }
     '''
