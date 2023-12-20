@@ -137,19 +137,16 @@ def metrics(baseline, comparator) -> dict:
     "summary results":"this is a summary result"
     }  
     '''
-    test_results = '''
-    {
-        "test results": {
-            "Primary Metrics": [
-                {"Metric 1": 24},
-                {"Metric 2": 0.42},
-                {"Metric 3": "NA"},
-                {"Metric 4": 2}, 
-                {"Metric 5": "True"}
-            ]
-        }
-    }
+    primary_metrics = '''
+    {"Primary Metrics": [
+    {"Metric 1": "True"},
+    {"Metric 2": "False"},
+    {"Metric 3": "False"},
+    {"Metric 4": "False"},
+    {"Metric 5": "False"},
+    ]}
     '''
+
     custom_cards = '''
     {
       "customCards": [
@@ -210,7 +207,7 @@ def metrics(baseline, comparator) -> dict:
     }  
     '''
     dashboard_result.update(json.loads(summary_results))
-    dashboard_result.update(json.loads(test_results))
+    dashboard_result.update(json.loads(primary_metrics))
     dashboard_result.update(json.loads(custom_cards))
     dashboard_result.update(json.loads(custom_cols))
     dashboard_result.update(json.loads(heatmap))
