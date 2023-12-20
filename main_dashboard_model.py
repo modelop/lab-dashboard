@@ -215,8 +215,8 @@ def metrics(baseline, comparator) -> dict:
     dashboard_result.update(json.loads(summary_results))
     dashboard_result.update(primary_metrics)
     #dashboard_result.update(json.loads(custom_cards))
-    dashboard_result.update(json.loads(custom_cols))
-    dashboard_result.update(json.loads(heatmap))
+    dashboard_result.update(custom_cols)
+    dashboard_result.update(heatmap)
     dashboard_result.update(json.loads(flat_heatmap))
     yield dashboard_result
 
