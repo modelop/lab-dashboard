@@ -87,11 +87,11 @@ def metrics(baseline, comparator) -> dict:
     {
       "customCards": [
         {
-          "name":"# of Models",
-          "value": 1
+          "name": "# of Models",
+          "values": [{"key": "Current","value": 1}]
         }, {
-          "name":"# of Reports",
-          "value": 1
+          "name": "# of Reports",
+          "values": [{"key": "Current","value": 1}]
         }
       ]
     }  
