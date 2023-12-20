@@ -17,10 +17,19 @@ LOG = logger.configure_logger()
 
 heatMapColors = ["Gray", "Green", "Green", "Green", "Green", "Green", "Green", "Green", "Yellow", "Green", "Green",
                  "Green", "Green", "Green", "Green", "Red"]
-
+aryOrgs = ["Insurance","Residuals","Credit","Fraud","AML","Insider Threats","Marketing","Trade Analytics","Capital Markets","Asset Management","Payments","Lockbox OCR"]
+aryRatings = ["Use Caution","Not performing","As Expected","As Expected","As Expected","As Expected","As Expected"]
+aryQuarter = ["FY23 Q1","FY23 Q2","FY23 Q3","FY23 Q4"]
 def generate_heatmap_color() -> str:
     return heatMapColors[random.randint(0, len(heatMapColors) - 1)]
-
+def generate_org() -> str:
+    return aryOrgs[random.randint(0,len(aryOrgs) - 1)]
+def generate_rating() -> str:
+    return aryRatings[random.randint(0,len(aryOrgs) - 1)]
+def generate_quarter() -> str:
+    return aryQuarter[random.randint(0,len(aryOrgs) - 1)]
+def generate_category() -> str:
+    return ""
 
 JOB = {}
 DEPLOYABLE_MODEL = {}
@@ -129,16 +138,15 @@ def metrics(baseline, comparator) -> dict:
 
     dashboard_result = {
         "createdDate": datetime.now().strftime('%m/%d/%Y %H:%M:%S'),
-        "modelUseCategory": "INSURANCE",
-        "modelOrganization": "Claims Processing",
+        "modelUseCategory": generate_category(),
+        "modelOrganization": generate_org(),
     }
     summary_results = '''
     {
     "summary results":"this is a summary result"
     }  
     '''
-    primary_metrics = '''
-    {
+    primary_metrics = {
         "Primary Metrics": [
             {"":1,"Metric": "Outcome 1", "Value": "False"},
             {"":2,"Metric": "Outcome 2", "Value": "True"},
@@ -147,7 +155,6 @@ def metrics(baseline, comparator) -> dict:
             {"":5,"Metric": "Data 2", "Value": "True"}
         ]
     }
-    '''
 
     # custom_cards = '''
     # {
@@ -165,44 +172,41 @@ def metrics(baseline, comparator) -> dict:
     #   ]
     # }  
     # '''
-    custom_cols = '''
-    {
+    custom_cols = {
       "customColumns": [
         {
           "name": "Reporting Quarter",
-          "value": "FY23 Q2"
+          "value": generate_quarter()
         },
         {
           "name":"Overall Rating",
-          "value":"Use Caution"
+          "value":generate_rating()
         }
       ]
     }  
-    '''
-    heatmap = '''
-    {
+    
+    heatmap = {
       "heatMap": {
         "Overall Assessment": {
-          "testResult": "Green"
+          "testResult": generate_heatmap_color()
         },
         "Primary Metric 1": {
-          "testResult": "Green"
+          "testResult": generate_heatmap_color()
         },
         "Primary Metric 2": {
-          "testResult": "Green"
+          "testResult": generate_heatmap_color()
         },
         "Primary Metric 3": {
-          "testResult": "Green"
+          "testResult": generate_heatmap_color()
         },
         "Primary Metric 4": {
-          "testResult": "Green"
+          "testResult": generate_heatmap_color()
         },
         "Primary Metric 5": {
-          "testResult": "Green"
+          "testResult": generate_heatmap_color()
         }
       }
     }
-    '''
     flat_heatmap = '''
     {
     "summary results":"this is a summary result"
